@@ -1,0 +1,47 @@
+{# @var craft \craft\web\twig\variables\CraftVariable #}
+{#
+/**
+ * Plausible plugin for Craft CMS 3.x
+ *
+ * Plausible Settings.twig
+ *
+ * @author    Sean Hill
+ * @copyright Copyright (c) 2021 Sean Hill
+ * @link      https://shorn.co.uk
+ * @package   Plausible
+ * @since     1.0.0
+ */
+#}
+
+{# {% set apiKey = settings.apiKey|replace('$', '') %}
+{% set siteID = settings.siteId|replace('$', '') %} #}
+
+{% import "_includes/forms" as forms %}
+{#
+{% do view.registerAssetBundle("shornuk\\plausible\\assetbundles\\plausible\\PlausibleAsset") %} #}
+
+{{ forms.autosuggestField({
+    label: "API Key"|t('plausible'),
+    instructions: 'Enter your Plausible API Key <a href="#" class="go" rel="noopener" target="_blank">Learn more</a>',
+    warning: (config.apiKey is defined ? macros.configWarning('apiKey')),
+    id: 'apiKey',
+    name: 'apiKey',
+    suggestEnvVars: true,
+    suggestions: craft.cp.getEnvSuggestions(),
+    value: settings.apiKey,
+    errors: settings.getErrors('apiKey'),
+    required: true,
+}) }}
+
+{{ forms.autosuggestField({
+    label: "Site ID"|t('plausible'),
+    instructions: 'Enter your Site ID <a href="#" class="go" rel="noopener" target="_blank">Learn more</a>',
+    warning: (config.siteId is defined ? macros.configWarning('siteId')),
+    id: 'siteId',
+    name: 'siteId',
+    suggestEnvVars: true,
+    suggestions: craft.cp.getEnvSuggestions(),
+    value: settings.siteId,
+    errors: settings.getErrors('siteId'),
+    required: true,
+}) }}

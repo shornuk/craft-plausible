@@ -1,0 +1,44 @@
+{
+    "name": "shornuk/craft-plausible",
+    "description": "A wrapper around the Plausible API that fetches the analytics into your dashboard in a pretty way.",
+    "type": "craft-plugin",
+    "version": "1.0.0",
+    "keywords": [
+        "craft",
+        "cms",
+        "craftcms",
+        "craft-plugin",
+        "plausible"
+    ],
+    "support": {
+        "docs": "https://github.com/shornuk/craft-plausible/blob/master/README.md",
+        "issues": "https://github.com/shornuk/craft-plausible/issues"
+    },
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Sean Hill",
+            "homepage": "https://shorn.co.uk"
+        }
+    ],
+    "require": {
+        "craftcms/cms": "^3.0.0"
+    },
+    "autoload": {
+        "psr-4": {
+          "shornuk\\plausible\\": "src/"
+        }
+    },
+    "extra": {
+        "name": "Plausible",
+        "handle": "plausible",
+        "developer": "Sean Hill",
+        "developerUrl": "https://shorn.co.uk",
+        "documentationUrl": "https://github.com/shornuk/craft-plausible/blob/master/README.md",
+        "changelogUrl": "https://raw.githubusercontent.com/shornuk/craft-plausible/master/CHANGELOG.md",
+        "components": {
+            "plausible": "shornuk\\plausible\\services\\Plausible"
+        },
+        "class": "shornuk\\plausible\\Plausible"
+    }
+}
