@@ -1,8 +1,8 @@
 {
     "name": "shornuk/craft-plausible",
-    "description": "A wrapper around the Plausible API that fetches the analytics into your dashboard in a pretty way.",
+    "description": "Plausible is a Craft CMS plugin that gives you handy dashboard widgets to display analytics data from Plausible.",
     "type": "craft-plugin",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "keywords": [
         "craft",
         "cms",
@@ -17,7 +17,7 @@
     "license": "MIT",
     "authors": [
         {
-            "name": "Sean Hill",
+            "name": "Shorn",
             "homepage": "https://shorn.co.uk"
         }
     ],
@@ -32,7 +32,7 @@
     "extra": {
         "name": "Plausible",
         "handle": "plausible",
-        "developer": "Sean Hill",
+        "developer": "Shorn",
         "developerUrl": "https://shorn.co.uk",
         "documentationUrl": "https://github.com/shornuk/craft-plausible/blob/master/README.md",
         "changelogUrl": "https://raw.githubusercontent.com/shornuk/craft-plausible/master/CHANGELOG.md",
