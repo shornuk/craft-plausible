@@ -8,7 +8,7 @@
  * @copyright Copyright (c) 2021 Sean Hill
  */
 
-namespace shornuk\plausible\assetbundles\plausiblewidget;
+namespace shornuk\plausible\assetbundles\widgets\toppages;
 
 use Craft;
 use craft\web\AssetBundle;
@@ -19,7 +19,7 @@ use craft\web\assets\cp\CpAsset;
  * @package   Plausible
  * @since     1.0.0
  */
-class PlausibleWidgetAsset extends AssetBundle
+class TopPagesAsset extends AssetBundle
 {
     // Public Methods
     // =========================================================================
@@ -29,7 +29,7 @@ class PlausibleWidgetAsset extends AssetBundle
      */
     public function init()
     {
-        $this->sourcePath = "@shornuk/plausible/assetbundles/plausiblewidget/dist";
+        $this->sourcePath = "@shornuk/plausible/assetbundles/widgets/toppages/dist";
 
         $this->depends = [
             CpAsset::class,

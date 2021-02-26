@@ -1,0 +1,19 @@
+<div class="fullwidth overview-grid">
+	<div>
+		<p class="overview-title">Unique Visitors</p>
+		<p class="overview-value">{{ results.visitors.value|prettyCount }} <span>({{ results.visitors.value }})</span></p>
+	</div>
+	<div>
+		<p class="overview-title">Total Pageviews</p>
+		<p class="overview-value">{{ results.pageviews.value|prettyCount }} <span>({{ results.pageviews.value }})</span></p>
+	</div>
+	<div>
+		<p class="overview-title">Visit duration</p>
+		<p class="overview-value">{{ results.visit_duration.value|prettyTime }}</p>
+	</div>
+	<div>
+		<p class="overview-title">Bounce rate</p>
+		<p class="overview-value">{{ results.bounce_rate.value }}%</p>
+	</div>
+</div>
+

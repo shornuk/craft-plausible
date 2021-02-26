@@ -12,7 +12,7 @@ namespace shornuk\plausible\widgets;
 
 use shornuk\plausible\Plausible;
 use shornuk\plausible\services\PlausibleService;
-use shornuk\plausible\assetbundles\plausiblewidget\PlausibleWidgetAsset;
+use shornuk\plausible\assetbundles\widgets\overview\OverviewAsset;
 
 use Craft;
 use craft\base\Widget;
@@ -24,13 +24,12 @@ use craft\base\Widget;
  * @package   Plausible
  * @since     1.0.0
  */
-class PlausibleWidget extends Widget
+class Overview extends Widget
 {
 
     // Public Properties
     // =========================================================================
 
-    public $limit = 5;
     public $timePeriod = '6mo';
 
     // Static Methods
@@ -41,7 +40,7 @@ class PlausibleWidget extends Widget
      */
     public static function displayName(): string
     {
-        return Craft::t('plausible', 'Top Pages');
+        return Craft::t('plausible', 'Overview');
     }
 
     /**
@@ -49,7 +48,7 @@ class PlausibleWidget extends Widget
      */
     public static function icon()
     {
-        return Craft::getAlias("@shornuk/plausible/assetbundles/plausiblewidget/dist/img/Plausible-icon.svg");
+        return Craft::getAlias("@shornuk/plausible/assetbundles/widgets/overview/dist/img/Plausible-icon.svg");
     }
 
     /**
@@ -63,7 +62,20 @@ class PlausibleWidget extends Widget
     // Public Methods
     // =========================================================================
 
+    public function getTitle(): string
+    {
+        if (!isset($title)) {
+            $title = Craft::t('plausible', 'Overview');
+        }
+        $timePeriod = $this->timePeriod;
 
+        if ($timePeriod) {
+            $title = Craft::t('app', 'Overview - {timePeriod}', [
+                'timePeriod' => Craft::t('plausible', Plausible::$plugin->plausible->timeLabelize($timePeriod)),
+            ]);
+        }
+        return $title;
+    }
 
     /**
      * @inheritdoc
@@ -71,7 +83,7 @@ class PlausibleWidget extends Widget
     public function getSettingsHtml()
     {
         return Craft::$app->getView()->renderTemplate(
-            'plausible/_components/widgets/Plausible_settings',
+            'plausible/_components/widgets/Overview/settings',
             [
                 'widget' => $this
             ]
@@ -83,12 +95,14 @@ class PlausibleWidget extends Widget
      */
     public function getBodyHtml()
     {
-        Craft::$app->getView()->registerAssetBundle(PlausibleWidgetAsset::class);
+        Craft::$app->getView()->registerAssetBundle(OverviewAsset::class);
+
+        $results = Plausible::$plugin->plausible->getOverview($this->timePeriod);
 
         return Craft::$app->getView()->renderTemplate(
-            'plausible/_components/widgets/Plausible_body',
+            'plausible/_components/widgets/Overview/body',
             [
-                'results' => Plausible::$plugin->plausible->getTopPages($this->limit, $this->timePeriod)
+                'results' => $results
             ]
         );
     }

@@ -1,0 +1,16 @@
+<table class="fullwidth">
+	{% for result in results.results %}
+		<tr>
+	        <td>
+	        	{% set uri = result.page|replace('/', '') %}
+	        	{% set entry = craft.entries().uri(uri).one() %}
+	        	{% if entry %}
+	        		<a href="{{ entry.cpEditUrl}}">{{ result.page }}</a>
+	        	{% else %}
+	        		<span>{{ result.page }}</span>
+	        	{% endif %}
+	        	<span style="float: right;">{{ result.visitors }}</span>
+	        </td>
+	    </tr>
+    {% endfor %}
+</table>
