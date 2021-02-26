@@ -10,7 +10,7 @@ namespace shornuk\plausible\widgets;
 
 use shornuk\plausible\Plausible;
 use shornuk\plausible\services\PlausibleService;
-use shornuk\plausible\assetbundles\widgets\TopPages\TopPagesAsset;
+use shornuk\plausible\assetbundles\widgets\toppages\TopPagesAsset;
 
 use Craft;
 use craft\base\Widget;
@@ -54,7 +54,7 @@ class TopPages extends Widget
      */
     public static function icon()
     {
-        return Craft::getAlias("@shornuk/plausible/assetbundles/widgets/TopPages/dist/img/Plausible-icon.svg");
+        return Craft::getAlias("@shornuk/plausible/assetbundles/widgets/toppages/dist/img/Plausible-icon.svg");
     }
 
     /**

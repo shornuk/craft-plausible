@@ -10,7 +10,7 @@ namespace shornuk\plausible\widgets;
 
 use shornuk\plausible\Plausible;
 use shornuk\plausible\services\PlausibleService;
-use shornuk\plausible\assetbundles\widgets\TopSources\TopSourcesAsset;
+use shornuk\plausible\assetbundles\widgets\topsources\TopSourcesAsset;
 
 use Craft;
 use craft\base\Widget;
@@ -54,7 +54,7 @@ class TopSources extends Widget
      */
     public static function icon()
     {
-        return Craft::getAlias("@shornuk/plausible/assetbundles/widgets/TopSources/dist/img/Plausible-icon.svg");
+        return Craft::getAlias("@shornuk/plausible/assetbundles/widgets/topsources/dist/img/Plausible-icon.svg");
     }
 
     /**
