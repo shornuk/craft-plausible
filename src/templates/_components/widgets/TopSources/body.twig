@@ -1,0 +1,10 @@
+<table class="fullwidth">
+	{% for result in results.results %}
+		<tr>
+	        <td>
+	        	<span>{{ result.source|length ? result.source : 'Direct' }}</span>
+	        	<span style="float: right;">{{ result.visitors }}</span>
+	        </td>
+	    </tr>
+    {% endfor %}
+</table>
