@@ -2,8 +2,6 @@
 /**
  * Plausible plugin for Craft CMS 3.x
  *
- * A wrapper around the Plausible API that fetches the analytics into your dashboard in a pretty way.
- *
  * @link      https://shorn.co.uk
  * @copyright Copyright (c) 2021 Sean Hill
  */
@@ -18,7 +16,7 @@ use Craft;
 use craft\base\Widget;
 
 /**
- * Plausible Widget
+ * Top Sources Widget
  *
  * @author    Sean Hill
  * @package   Plausible

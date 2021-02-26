@@ -1,4 +1,3 @@
-{# @var craft \craft\web\twig\variables\CraftVariable #}
 {#
 /**
  * Plausible plugin for Craft CMS 3.x
@@ -13,16 +12,11 @@
  */
 #}
 
-{# {% set apiKey = settings.apiKey|replace('$', '') %}
-{% set siteID = settings.siteId|replace('$', '') %} #}
-
 {% import "_includes/forms" as forms %}
-{#
-{% do view.registerAssetBundle("shornuk\\plausible\\assetbundles\\plausible\\PlausibleAsset") %} #}
 
 {{ forms.autosuggestField({
     label: "API Key"|t('plausible'),
-    instructions: 'Enter your Plausible API Key <a href="#" class="go" rel="noopener" target="_blank">Learn more</a>',
+    instructions: 'Enter your Plausible API Key <a href="https://plausible.io/settings" class="go" rel="noopener" target="_blank">Learn more</a>',
     warning: (config.apiKey is defined ? macros.configWarning('apiKey')),
     id: 'apiKey',
     name: 'apiKey',
@@ -35,7 +29,7 @@
 
 {{ forms.autosuggestField({
     label: "Site ID"|t('plausible'),
-    instructions: 'Enter your Site ID <a href="#" class="go" rel="noopener" target="_blank">Learn more</a>',
+    instructions: 'Enter your Site ID (This is the domain as it is listed in your settings. Usually "domain.com")',
     warning: (config.siteId is defined ? macros.configWarning('siteId')),
     id: 'siteId',
     name: 'siteId',

@@ -1,4 +1,10 @@
 <?php
+/**
+ * Plausible plugin for Craft CMS 3.x
+ *
+ * @link      https://shorn.co.uk
+ * @copyright Copyright (c) 2021 Sean Hill
+ */
 
 namespace shornuk\plausible\twigextensions;
 
@@ -7,6 +13,12 @@ use shornuk\plausible\services\PlausibleService;
 
 use Twig_Extension;
 use Twig_SimpleFilter;
+
+/**
+ * @author    Sean Hill
+ * @package   Plausible
+ * @since     1.0.0
+ */
 
 class PlausibleTwigExtension extends Twig_Extension
 {

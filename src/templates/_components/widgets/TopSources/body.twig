@@ -1,10 +1,14 @@
 <table class="fullwidth">
-	{% for result in results.results %}
-		<tr>
-	        <td>
-	        	<span>{{ result.source|length ? result.source : 'Direct' }}</span>
-	        	<span style="float: right;">{{ result.visitors }}</span>
-	        </td>
-	    </tr>
-    {% endfor %}
+	{% if results.error is defined %}
+		<p class="error">{{ results.error }}</p>
+	{% else %}
+		{% for result in results.results %}
+			<tr>
+		        <td>
+		        	<span>{{ result.source|length ? result.source : 'Direct' }}</span>
+		        	<span style="float: right;">{{ result.visitors }}</span>
+		        </td>
+		    </tr>
+	    {% endfor %}
+	{% endif %}
 </table>

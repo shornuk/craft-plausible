@@ -1,8 +1,8 @@
 # Plausible plugin for Craft CMS 3.x
 
-A wrapper around the Plausible API that fetches the analytics into your dashboard in a pretty way.
+<img src="resources/img/plugin-logo.svg" width="100" alt="Plausible Logo">
 
-![Screenshot](resources/img/plugin-logo.png)
+Plausible is a Craft CMS plugin that gives you handy dashboard widgets to display analytics data from Plausible.
 
 ## Requirements
 
@@ -22,22 +22,9 @@ To install the plugin, follow these instructions.
 
 3. In the Control Panel, go to Settings → Plugins and click the “Install” button for Plausible.
 
-## Plausible Overview
-
--Insert text here-
 
 ## Configuring Plausible
 
--Insert text here-
-
-## Using Plausible
-
--Insert text here-
-
-## Plausible Roadmap
-
-Some things to do, and ideas for potential features:
-
-* Release it
+You'll need to enter your Plausible API key, (can be generated within your account settings) and the Site ID you wish to display data for. This is usually just the domain, eg. domain.com
 
 Brought to you by [Sean Hill](https://shorn.co.uk)
