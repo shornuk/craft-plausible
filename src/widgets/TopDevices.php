@@ -28,18 +28,10 @@ class TopDevices extends Widget
     // Public Properties
     // =========================================================================
 
-    public $limit = 5;
     public $timePeriod = '6mo';
 
     // Static Methods
     // =========================================================================
-
-    protected function defineRules(): array
-    {
-        $rules = parent::defineRules();
-        $rules[] = [['limit'], 'integer', 'max' => 20];
-        return $rules;
-    }
 
     /**
      * @inheritdoc
@@ -101,7 +93,7 @@ class TopDevices extends Widget
         Craft::$app->getView()->registerAssetBundle(PlausibleAsset::class);
 
         $visitors = Plausible::$plugin->plausible->getVisitors($this->timePeriod);
-        $results = Plausible::$plugin->plausible->getTopDevices($this->limit, $this->timePeriod);
+        $results = Plausible::$plugin->plausible->getTopDevices($this->timePeriod);
 
         return Craft::$app->getView()->renderTemplate(
             'plausible/_components/widgets/TopDevices/body',

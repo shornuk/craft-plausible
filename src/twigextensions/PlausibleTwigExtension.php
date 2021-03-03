@@ -29,7 +29,13 @@ class PlausibleTwigExtension extends Twig_Extension
             new Twig_SimpleFilter('prettyTime', [$this, 'prettyTime']),
             new Twig_SimpleFilter('prettyCount', [$this, 'prettyCount']),
             new Twig_SimpleFilter('asPercentageOf', [$this, 'asPercentageOf']),
+            new Twig_SimpleFilter('prepUri', [$this, 'prepUri']),
         ];
+    }
+
+    public function prepUri($sting)
+    {
+        return ltrim($sting, '/');
     }
 
     public function timeLabelize($value)

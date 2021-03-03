@@ -12,7 +12,7 @@
 			<span class="bar{{ bg.color ? ' bar-'~bg.color }}" style="width:{{ bg.width }}%;"></span>
 			<div class="description">
 				{% if link %}
-					<a href="{{ link.url }}">{{ link.text }}</a>
+					<a title="View {{ link.text }} in CP" href="{{ link.url }}">{{ link.text }}</a>
 				{% else %}
 					<span>{{ text|raw }}</span>
 				{% endif %}

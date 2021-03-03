@@ -6,8 +6,10 @@
 		{% set max = results.results|first %}
 		{% for result in results.results %}
 			<tr>
-				{% set uri = result.page|replace('/', '') %}
+
+				{% set uri = result.page|prepUri %}
 		        {% set entry = craft.entries().uri(uri|literal).one() %}
+
 				{{ resultBar({
 					bg: {
 						width: result.visitors|asPercentageOf(max.visitors)
