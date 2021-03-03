@@ -100,7 +100,13 @@ class TopSources extends Widget
     {
         Craft::$app->getView()->registerAssetBundle(PlausibleAsset::class);
 
-        $results = Plausible::$plugin->plausible->getTopSources($this->limit, $this->timePeriod);
+        $cacheKey = 'plausible:topSources'.$this->timePeriod.$this->limit;
+        $results = Craft::$app->getCache()->get($cacheKey);
+        if (!$results)
+        {
+            $results = Plausible::$plugin->plausible->getTopSources($this->limit, $this->timePeriod);
+            Craft::$app->getCache()->set($cacheKey, $results, 120);
+        }
 
         return Craft::$app->getView()->renderTemplate(
             'plausible/_components/widgets/TopSources/body',

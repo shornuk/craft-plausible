@@ -92,8 +92,21 @@ class TopDevices extends Widget
     {
         Craft::$app->getView()->registerAssetBundle(PlausibleAsset::class);
 
-        $visitors = Plausible::$plugin->plausible->getVisitors($this->timePeriod);
-        $results = Plausible::$plugin->plausible->getTopDevices($this->timePeriod);
+        $cacheKey = 'plausible:topDevices'.$this->timePeriod;
+        $results = Craft::$app->getCache()->get($cacheKey);
+        if (!$results)
+        {
+            $results = Plausible::$plugin->plausible->getTopDevices($this->timePeriod);
+            Craft::$app->getCache()->set($cacheKey, $results, 120);
+        }
+
+        $visitorCacheKey = 'plausible:totalVisitors'.$this->timePeriod;
+        $visitors = Craft::$app->getCache()->get($visitorCacheKey);
+        if (!$visitors)
+        {
+            $visitors = Plausible::$plugin->plausible->getVisitors($this->timePeriod);
+            Craft::$app->getCache()->set($visitorCacheKey, $visitors, 120);
+        }
 
         return Craft::$app->getView()->renderTemplate(
             'plausible/_components/widgets/TopDevices/body',

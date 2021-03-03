@@ -90,10 +90,16 @@ class Overview extends Widget
      */
     public function getBodyHtml()
     {
-       Craft::$app->getView()->registerAssetBundle(PlausibleAsset::class);
+        Craft::$app->getView()->registerAssetBundle(PlausibleAsset::class);
 
-        $results = Plausible::$plugin->plausible->getOverview($this->timePeriod);
-        // $timeline = Plausible::$plugin->plausible->getTimeSeries($this->timePeriod);
+        $cacheKey = 'plausible:overview'.$this->timePeriod;
+        $results = Craft::$app->getCache()->get($cacheKey);
+
+        if (!$results)
+        {
+            $results = Plausible::$plugin->plausible->getOverview($this->timePeriod);
+            Craft::$app->getCache()->set($cacheKey, $results, 120);
+        }
 
         return Craft::$app->getView()->renderTemplate(
             'plausible/_components/widgets/Overview/body',
