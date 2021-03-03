@@ -1,8 +1,10 @@
 # Plausible plugin for Craft CMS 3.x
 
-<img src="resources/img/plugin-logo.svg" width="100" alt="Plausible Logo">
+<!-- <img src="resources/img/plugin-logo.svg" width="100" alt="Plausible Logo"> -->
 
 Plausible is a Craft CMS plugin that gives you handy dashboard widgets to display analytics data from Plausible.
+
+<img src="resources/img/plausible-hero.jpg" width="100%" height="auto" alt="Plausible Hero">
 
 ## Requirements
 

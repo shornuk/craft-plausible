@@ -4,18 +4,29 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](http://keepachangelog.com/) and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## 1.0.4 - Unreleased
+
+#### Added
+- Top Devices widget
+- Comarison percentage to previous period
+
+#### Changed
+- Improved styling of results in Top Source, Top Pages and Top Devices widgets
+- Better handling of linking Top Pages results to CP edit page
+- Added banner to readme
+
 ## 1.0.3 - 2021-02-26
-### Fixed
+#### Fixed
 - Version bumped to sync up
 
 ## 1.0.2 - 2021-02-26
-### Fixed
+#### Fixed
 - Fixed assetbundle and icon paths
 
 ## 1.0.1 - 2021-02-26
-### Changed
+#### Changed
 - Update plugin details
 
 ## 1.0.0 - 2021-02-26
-### Added
+#### Added
 - Initial release
