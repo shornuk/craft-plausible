@@ -50,29 +50,30 @@ class PlausibleTwigExtension extends Twig_Extension
         return sprintf("%dh %2dm %02ds", $h, $m, $s);
     }
 
-    public function prettyCount($count)
+    public function prettyCount($value)
     {
-        $count = number_format($count);
+        $count = number_format($value);
         $input_count = substr_count($count, ',');
 
         if($input_count != '0')
         {
             if($input_count == '1')
             {
-                return substr($count, 0, -4).'k';
+                $formattedCount = substr($count, 0, -4).'k';
             }
             elseif($input_count == '2')
             {
-                return substr($count, 0, -8).'mil';
+                $formattedCount = substr($count, 0, -8).'mil';
             }
             elseif($input_count == '3')
             {
-                return substr($count, 0,  -12).'bil';
+                $formattedCount = substr($count, 0,  -12).'bil';
             }
             else
             {
                 return;
             }
+            return $formattedCount;
         }
         else
         {

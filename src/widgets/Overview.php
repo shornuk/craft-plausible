@@ -93,11 +93,13 @@ class Overview extends Widget
        Craft::$app->getView()->registerAssetBundle(PlausibleAsset::class);
 
         $results = Plausible::$plugin->plausible->getOverview($this->timePeriod);
+        // $timeline = Plausible::$plugin->plausible->getTimeSeries($this->timePeriod);
 
         return Craft::$app->getView()->renderTemplate(
             'plausible/_components/widgets/Overview/body',
             [
-                'results' => $results
+                'results' => $results,
+                // 'timeline' => $timeline
             ]
         );
     }

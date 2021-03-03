@@ -13,30 +13,60 @@
 .overview-grid {
 	display:grid;
  	grid-row: auto auto;
- 	grid-template-columns: 1fr 1fr;
-  	grid-template-rows: 1fr 1fr;
  	grid-column-gap: 12px;
  	grid-row-gap: 12px;
+ 	grid-template-areas:
+    'stat stat stat stat';
+}
+
+@media (max-width: 700px) {
+  .overview-grid {
+    grid-template-areas:
+      'stat stat'
+      'stat stat';
+  }
+}
+
+@media (max-width: 400px) {
+  .overview-grid {
+    grid-template-areas:
+      'stat'
+      'stat'
+      'stat'
+      'stat';
+  }
 }
 
 .overview-title {
-	color: #515f6c;
-	font-size: 14px;
 	padding-top: 6px;
-	font-weight: 600;
+	font-weight: 400;
 	margin-bottom: 4px;
 }
 .overview-value {
 	margin: 0;
-	font-weight: 700;
-	font-size: 20px;
+	font-weight: 600;
+	font-size: 24px;
 	padding-bottom: 12px;
 }
 
-.overview-value span{
+.overview-value span {
 	margin: 0;
 	font-weight: 400;
 	font-size: 14px;
+}
+
+.overview-value .percentage {
+	font-size: 12px;
+	font-weight: 500;
+}
+
+.overview-value .up {
+	color: rgba(16,185,129, 1);
+	margin-right: 2px;
+}
+.overview-value .down {
+	color: rgba(248,113,113, 1);
+	margin-right: 2px;
 }
 
 
