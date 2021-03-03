@@ -11,31 +11,16 @@
  */
 
 .overview-grid {
-	display:grid;
- 	grid-row: auto auto;
- 	grid-column-gap: 12px;
- 	grid-row-gap: 12px;
- 	grid-template-areas:
-    'stat stat stat stat';
+	padding: 0 16px;
+	display:flex;
+	align-items: center;
+	flex-wrap: wrap;
 }
 
-@media (max-width: 700px) {
-  .overview-grid {
-    grid-template-areas:
-      'stat stat'
-      'stat stat';
-  }
+.overview-grid div {
+ 	margin-right: 48px;
 }
 
-@media (max-width: 400px) {
-  .overview-grid {
-    grid-template-areas:
-      'stat'
-      'stat'
-      'stat'
-      'stat';
-  }
-}
 
 .overview-title {
 	padding-top: 6px;
@@ -68,6 +53,12 @@
 	color: rgba(248,113,113, 1);
 	margin-right: 2px;
 }
+.overview-chart .line-vertical {
+    display: none;
+}
+.line-graph-path {
+    stroke-width: 3px !important;
+}
 
 
 
@@ -90,6 +81,9 @@
 }
 .detail .bar-green {
 	background-color:rgba(236,253,245, 1);
+}
+.detail .bar-red {
+	background-color:rgba(254,242,242, 1);
 }
 .detail .description {
 	margin-top: -26.5px;

@@ -16,29 +16,37 @@ use Craft;
 use craft\base\Widget;
 
 /**
- * Overview Widget
+ * Top Sources Widget
  *
  * @author    Sean Hill
  * @package   Plausible
  * @since     1.0.0
  */
-class Overview extends Widget
+class TopBrowsers extends Widget
 {
 
     // Public Properties
     // =========================================================================
 
+    public $limit = 5;
     public $timePeriod = '6mo';
 
     // Static Methods
     // =========================================================================
+
+    protected function defineRules(): array
+    {
+        $rules = parent::defineRules();
+        $rules[] = [['limit'], 'integer', 'max' => 20];
+        return $rules;
+    }
 
     /**
      * @inheritdoc
      */
     public static function displayName(): string
     {
-        return Craft::t('plausible', 'Overview');
+        return Craft::t('plausible', 'Top Browsers');
     }
 
     public static function icon()
@@ -60,12 +68,12 @@ class Overview extends Widget
     public function getTitle(): string
     {
         if (!isset($title)) {
-            $title = Craft::t('plausible', 'Overview');
+            $title = Craft::t('plausible', 'Top Browsers');
         }
         $timePeriod = $this->timePeriod;
 
         if ($timePeriod) {
-            $title = Craft::t('app', 'Overview - {timePeriod}', [
+            $title = Craft::t('app', 'Top Browsers - {timePeriod}', [
                 'timePeriod' => Craft::t('plausible', Plausible::$plugin->plausible->timeLabelize($timePeriod)),
             ]);
         }
@@ -78,7 +86,7 @@ class Overview extends Widget
     public function getSettingsHtml()
     {
         return Craft::$app->getView()->renderTemplate(
-            'plausible/_components/widgets/Overview/settings',
+            'plausible/_components/widgets/TopBrowsers/settings',
             [
                 'widget' => $this
             ]
@@ -92,29 +100,18 @@ class Overview extends Widget
     {
         Craft::$app->getView()->registerAssetBundle(PlausibleAsset::class);
 
-        $cacheKey = 'plausible:overview'.$this->timePeriod;
+        $cacheKey = 'plausible:topBrowsers'.$this->timePeriod.$this->limit;
         $results = Craft::$app->getCache()->get($cacheKey);
-
         if (!$results)
         {
-            $results = Plausible::$plugin->plausible->getOverview($this->timePeriod);
+            $results = Plausible::$plugin->plausible->getTopBrowsers($this->limit, $this->timePeriod);
             Craft::$app->getCache()->set($cacheKey, $results, 120);
         }
 
-        $timeCacheKey = 'plausible:timeseries'.$this->timePeriod;
-        $timeResults = Craft::$app->getCache()->get($timeCacheKey);
-
-        if (!$timeResults)
-        {
-            $timeResults = Plausible::$plugin->plausible->getTimeSeries($this->timePeriod);
-            Craft::$app->getCache()->set($timeCacheKey, $timeResults, 120);
-        }
-
         return Craft::$app->getView()->renderTemplate(
-            'plausible/_components/widgets/Overview/body',
+            'plausible/_components/widgets/TopBrowsers/body',
             [
-                'results' => $results,
-                'timeResults' => $timeResults
+                'results' => $results
             ]
         );
     }

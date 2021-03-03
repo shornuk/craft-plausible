@@ -11,6 +11,7 @@ namespace shornuk\plausible\assetbundles\plausible;
 use Craft;
 use craft\web\AssetBundle;
 use craft\web\assets\cp\CpAsset;
+use craft\web\assets\chartjs\ChartJsAsset;
 
 /**
  * @author    Sean Hill
@@ -34,11 +35,13 @@ class PlausibleAsset extends AssetBundle
         ];
 
         $this->js = [
-            'js/Plausible.js',
+            'js/frappe-charts.min.iife.js',
+            'js/Plausible.js'
         ];
 
         $this->css = [
             'css/Plausible.css',
+            'css/frappe-charts.min.css'
         ];
 
         parent::init();

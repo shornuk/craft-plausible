@@ -14,6 +14,7 @@ use shornuk\plausible\models\Settings;
 use shornuk\plausible\widgets\TopPages;
 use shornuk\plausible\widgets\TopSources;
 use shornuk\plausible\widgets\TopDevices;
+use shornuk\plausible\widgets\TopBrowsers;
 use shornuk\plausible\widgets\Overview;
 use shornuk\plausible\twigextensions\PlausibleTwigExtension;
 
@@ -89,6 +90,7 @@ class Plausible extends Plugin
                 $event->types[] = Overview::class;
                 $event->types[] = TopSources::class;
                 $event->types[] = TopDevices::class;
+                $event->types[] = TopBrowsers::class;
             }
         );
 

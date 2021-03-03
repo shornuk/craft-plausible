@@ -43,4 +43,23 @@
 		</div>
 	{% endif %}
 </div>
+<div class="fullwidth">
+	{# {{ d(timeResults)}} #}
+	{% set labels %}
+		{% for label in timeResults.results %}
+			"{{ label.date }}"{{ not loop.last ? ', ' }}
+		{% endfor %}
+	{% endset %}
+	<script type="text/javascript">
+		var data = {
+		    labels: [{{ labels }}],
+		    datasets: [
+		        {
+		            values: [{{ timeResults.results|map(r => r.visitors)|join(', ') }}]
+		        }
+		    ]
+		}
+	</script>
+	<div class="overview-chart" id="chart"></div>
+</div>
 
