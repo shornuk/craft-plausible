@@ -63,10 +63,30 @@ class PlausibleService extends Component
 
     }
 
+    public function getTopDevices($limit = 5, $timePeriod = '30d')
+    {
+
+        $format = 'https://plausible.io/api/v1/stats/breakdown?site_id=%1$s&period=%2$s&property=visit:device&limit=%3$s';
+        $url = sprintf($format, Craft::parseEnv($this->settings->siteId), $timePeriod, $limit);
+
+        return $this->queryApi($url);
+
+    }
+
     public function getOverview($timePeriod = '30d')
     {
 
         $format = 'https://plausible.io/api/v1/stats/aggregate?site_id=%1$s&period=%2$s&metrics=visitors,pageviews,bounce_rate,visit_duration ';
+        $url = sprintf($format, Craft::parseEnv($this->settings->siteId), $timePeriod);
+
+        return $this->queryApi($url);
+
+    }
+
+    public function getVisitors($timePeriod = '30d')
+    {
+
+        $format = 'https://plausible.io/api/v1/stats/aggregate?site_id=%1$s&period=%2$s&metrics=visitors';
         $url = sprintf($format, Craft::parseEnv($this->settings->siteId), $timePeriod);
 
         return $this->queryApi($url);

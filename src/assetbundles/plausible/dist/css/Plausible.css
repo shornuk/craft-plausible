@@ -9,3 +9,64 @@
  * @package   Plausible
  * @since     1.0.0
  */
+
+.overview-grid {
+	display:grid;
+ 	grid-row: auto auto;
+ 	grid-template-columns: 1fr 1fr;
+  	grid-template-rows: 1fr 1fr;
+ 	grid-column-gap: 12px;
+ 	grid-row-gap: 12px;
+}
+
+.overview-title {
+	color: #515f6c;
+	font-size: 14px;
+	padding-top: 6px;
+	font-weight: 600;
+	margin-bottom: 4px;
+}
+.overview-value {
+	margin: 0;
+	font-weight: 700;
+	font-size: 20px;
+	padding-bottom: 12px;
+}
+
+.overview-value span{
+	margin: 0;
+	font-weight: 400;
+	font-size: 14px;
+}
+
+
+
+.result {
+	display: flex;
+	align-items: center;
+}
+.detail {
+	flex: 1;
+	margin-right: 24px;
+}
+.detail .bar {
+	display: block;
+	height: 32px;
+	background-color:rgba(255,247,237, 1);
+	z-index: -1;
+}
+.detail .bar-blue {
+	background-color:rgba(239,246,255, 1);
+}
+.detail .bar-green {
+	background-color:rgba(236,253,245, 1);
+}
+.detail .description {
+	margin-top: -26.5px;
+	padding: 0 8px;
+	z-index: 1;
+}
+.detail .description .device {
+	display: flex;
+	align-items: center;
+}

@@ -1,0 +1,41 @@
+{% from "plausible/_macros" import resultBar %}
+<table class="fullwidth">
+	{% if results.error is defined %}
+		<p class="error">{{ results.error }}</p>
+	{% else %}
+		{% for result in results.results %}
+			{% set max = results.results|first %}
+			<tr>
+				{% set text %}
+					<span class="device">
+						<svg width="14" height="14" style="margin-right: 4px;" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather -mt-px">
+							{% switch result.device|lower %}
+								{% case "mobile" %}
+									<rect x="5" y="2" width="14" height="20" rx="2" ry="2"></rect><line x1="12" y1="18" x2="12" y2="18"></line>
+
+								{% case "tablet" %}
+									<rect x="4" y="2" width="16" height="20" rx="2" ry="2" transform="rotate(180 12 12)"></rect><line x1="12" y1="18" x2="12" y2="18"></line>
+
+								{% case "laptop" %}
+									<rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect><line x1="2" y1="20" x2="22" y2="20"></line>
+
+								{% case "desktop" %}
+									<rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect><line x1="8" y1="21" x2="16" y2="21"></line><line x1="12" y1="17" x2="12" y2="21"></line>
+							{% endswitch %}
+						</svg>
+						{{ result.device }}
+					</span>
+				{% endset %}
+
+		        {{ resultBar({
+		        	bg: {
+		        		color: 'green',
+		        		width: result.visitors|asPercentageOf(max.visitors)
+		        	},
+		        	text: text,
+		        	value: result.visitors ~ ' (' ~ result.visitors|asPercentageOf(visitors.visitors.value)|number_format(0) ~'%)'
+		        }) }}
+		    </tr>
+	    {% endfor %}
+	{% endif %}
+</table>

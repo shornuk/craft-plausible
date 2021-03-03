@@ -1,19 +1,24 @@
+{% from "plausible/_macros" import resultBar %}
 <table class="fullwidth">
 	{% if results.error is defined %}
 		<p class="error">{{ results.error }}</p>
 	{% else %}
+		{% set max = results.results|first %}
 		{% for result in results.results %}
 			<tr>
-		        <td>
-		        	{% set uri = result.page|replace('/', '') %}
-		        	{% set entry = craft.entries().uri(uri).one() %}
-		        	{% if entry %}
-		        		<a href="{{ entry.cpEditUrl}}">{{ result.page }}</a>
-		        	{% else %}
-		        		<span>{{ result.page }}</span>
-		        	{% endif %}
-		        	<span style="float: right;">{{ result.visitors }}</span>
-		        </td>
+				{% set uri = result.page|replace('/', '') %}
+		        {% set entry = craft.entries().uri(uri|literal).one() %}
+				{{ resultBar({
+					bg: {
+						width: result.visitors|asPercentageOf(max.visitors)
+					},
+					link: entry ? {
+						url: entry.cpEditUrl,
+						text: result.page
+					},
+					text: result.page,
+					value: result.visitors
+				}) }}
 		    </tr>
 	    {% endfor %}
     {% endif %}

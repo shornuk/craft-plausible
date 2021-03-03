@@ -10,7 +10,7 @@ namespace shornuk\plausible\widgets;
 
 use shornuk\plausible\Plausible;
 use shornuk\plausible\services\PlausibleService;
-use shornuk\plausible\assetbundles\widgets\toppages\TopPagesAsset;
+use shornuk\plausible\assetbundles\plausible\PlausibleAsset;
 
 use Craft;
 use craft\base\Widget;
@@ -49,12 +49,9 @@ class TopPages extends Widget
         return Craft::t('plausible', 'Top Pages');
     }
 
-    /**
-     * @inheritdoc
-     */
     public static function icon()
     {
-        return Craft::getAlias("@shornuk/plausible/assetbundles/widgets/toppages/dist/img/Plausible-icon.svg");
+        return Craft::getAlias("@shornuk/plausible/assetbundles/plausible/dist/img/Plausible-icon.svg");
     }
 
     /**
@@ -101,7 +98,7 @@ class TopPages extends Widget
      */
     public function getBodyHtml()
     {
-        Craft::$app->getView()->registerAssetBundle(TopPagesAsset::class);
+        Craft::$app->getView()->registerAssetBundle(PlausibleAsset::class);
 
         $results = Plausible::$plugin->plausible->getTopPages($this->limit, $this->timePeriod);
 

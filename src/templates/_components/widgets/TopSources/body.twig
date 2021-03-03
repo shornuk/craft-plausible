@@ -1,13 +1,19 @@
+{% from "plausible/_macros" import resultBar %}
 <table class="fullwidth">
 	{% if results.error is defined %}
 		<p class="error">{{ results.error }}</p>
 	{% else %}
 		{% for result in results.results %}
+			{% set max = results.results|first %}
 			<tr>
-		        <td>
-		        	<span>{{ result.source|length ? result.source : 'Direct' }}</span>
-		        	<span style="float: right;">{{ result.visitors }}</span>
-		        </td>
+		        {{ resultBar({
+		        	bg: {
+		        		color: 'blue',
+		        		width: result.visitors|asPercentageOf(max.visitors)
+		        	},
+		        	text: result.source|length ? result.source : 'Direct',
+		        	value: result.visitors
+		        }) }}
 		    </tr>
 	    {% endfor %}
 	{% endif %}

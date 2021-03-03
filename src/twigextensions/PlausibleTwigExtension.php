@@ -28,12 +28,18 @@ class PlausibleTwigExtension extends Twig_Extension
             new Twig_SimpleFilter('timeLabelize', [$this, 'timeLabelize']),
             new Twig_SimpleFilter('prettyTime', [$this, 'prettyTime']),
             new Twig_SimpleFilter('prettyCount', [$this, 'prettyCount']),
+            new Twig_SimpleFilter('asPercentageOf', [$this, 'asPercentageOf']),
         ];
     }
 
     public function timeLabelize($value)
     {
         return Plausible::$plugin->plausible->timeLabelize($value);
+    }
+
+    public function asPercentageOf($value, $topValue)
+    {
+        return $percentage = number_format(($value/$topValue) * 100, 2);
     }
 
     public function prettyTime($seconds)

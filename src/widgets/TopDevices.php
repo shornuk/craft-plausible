@@ -22,7 +22,7 @@ use craft\base\Widget;
  * @package   Plausible
  * @since     1.0.0
  */
-class TopSources extends Widget
+class TopDevices extends Widget
 {
 
     // Public Properties
@@ -46,7 +46,7 @@ class TopSources extends Widget
      */
     public static function displayName(): string
     {
-        return Craft::t('plausible', 'Top Sources');
+        return Craft::t('plausible', 'Top Devices');
     }
 
     public static function icon()
@@ -68,12 +68,12 @@ class TopSources extends Widget
     public function getTitle(): string
     {
         if (!isset($title)) {
-            $title = Craft::t('plausible', 'Top Sources');
+            $title = Craft::t('plausible', 'Top Devices');
         }
         $timePeriod = $this->timePeriod;
 
         if ($timePeriod) {
-            $title = Craft::t('app', 'Top Sources - {timePeriod}', [
+            $title = Craft::t('app', 'Top Devices - {timePeriod}', [
                 'timePeriod' => Craft::t('plausible', Plausible::$plugin->plausible->timeLabelize($timePeriod)),
             ]);
         }
@@ -86,7 +86,7 @@ class TopSources extends Widget
     public function getSettingsHtml()
     {
         return Craft::$app->getView()->renderTemplate(
-            'plausible/_components/widgets/TopSources/settings',
+            'plausible/_components/widgets/TopDevices/settings',
             [
                 'widget' => $this
             ]
@@ -100,11 +100,13 @@ class TopSources extends Widget
     {
         Craft::$app->getView()->registerAssetBundle(PlausibleAsset::class);
 
-        $results = Plausible::$plugin->plausible->getTopSources($this->limit, $this->timePeriod);
+        $visitors = Plausible::$plugin->plausible->getVisitors($this->timePeriod);
+        $results = Plausible::$plugin->plausible->getTopDevices($this->limit, $this->timePeriod);
 
         return Craft::$app->getView()->renderTemplate(
-            'plausible/_components/widgets/TopSources/body',
+            'plausible/_components/widgets/TopDevices/body',
             [
+                'visitors' => $visitors,
                 'results' => $results
             ]
         );

@@ -10,7 +10,7 @@ namespace shornuk\plausible\widgets;
 
 use shornuk\plausible\Plausible;
 use shornuk\plausible\services\PlausibleService;
-use shornuk\plausible\assetbundles\widgets\overview\OverviewAsset;
+use shornuk\plausible\assetbundles\plausible\PlausibleAsset;
 
 use Craft;
 use craft\base\Widget;
@@ -41,12 +41,9 @@ class Overview extends Widget
         return Craft::t('plausible', 'Overview');
     }
 
-    /**
-     * @inheritdoc
-     */
     public static function icon()
     {
-        return Craft::getAlias("@shornuk/plausible/assetbundles/widgets/overview/dist/img/Plausible-icon.svg");
+        return Craft::getAlias("@shornuk/plausible/assetbundles/plausible/dist/img/Plausible-icon.svg");
     }
 
     /**
@@ -93,7 +90,7 @@ class Overview extends Widget
      */
     public function getBodyHtml()
     {
-        Craft::$app->getView()->registerAssetBundle(OverviewAsset::class);
+       Craft::$app->getView()->registerAssetBundle(PlausibleAsset::class);
 
         $results = Plausible::$plugin->plausible->getOverview($this->timePeriod);
 

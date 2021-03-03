@@ -1,0 +1,23 @@
+{% macro resultBar(config) %}
+	{% set bg = {
+		width: config.bg.width ?? '0',
+		color: config.bg.color ?? false
+	} %}
+	{% set link = config.link ?? false %}
+	{% set text = config.text ?? false %}
+	{% set value = config.value ?? false %}
+
+	<td class="result">
+		<div class="detail">
+			<span class="bar{{ bg.color ? ' bar-'~bg.color }}" style="width:{{ bg.width }}%;"></span>
+			<div class="description">
+				{% if link %}
+					<a href="{{ link.url }}">{{ link.text }}</a>
+				{% else %}
+					<span>{{ text|raw }}</span>
+				{% endif %}
+			</div>
+		</div>
+		<div class="value">{{ value }}</div>
+	</td>
+{% endmacro %}
