@@ -8,7 +8,10 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 
 #### Added
 - Top Devices widget
-- Comarison percentage to previous period
+- Top Browsers widget
+- Comparison percentage to previous period
+- Widget data is now cached to prevent overloading api (default 120 seconds)
+- Added chart to overview
 
 #### Changed
 - Improved styling of results in Top Source, Top Pages and Top Devices widgets
