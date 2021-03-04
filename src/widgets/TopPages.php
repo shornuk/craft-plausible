@@ -28,8 +28,8 @@ class TopPages extends Widget
     // Public Properties
     // =========================================================================
 
-    public $limit = 5;
-    public $timePeriod = '6mo';
+    public $limit = 4;
+    public $timePeriod = '30d';
 
     // Static Methods
     // =========================================================================
@@ -105,7 +105,7 @@ class TopPages extends Widget
         if (!$results)
         {
             $results = Plausible::$plugin->plausible->getTopPages($this->limit, $this->timePeriod);
-            Craft::$app->getCache()->set($cacheKey, $results, 120);
+            Craft::$app->getCache()->set($cacheKey, $results, 300);
         }
 
         return Craft::$app->getView()->renderTemplate(

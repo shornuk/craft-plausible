@@ -11,6 +11,7 @@ namespace shornuk\plausible\twigextensions;
 use shornuk\plausible\Plausible;
 use shornuk\plausible\services\PlausibleService;
 
+use Craft;
 use Twig_Extension;
 use Twig_SimpleFilter;
 
@@ -53,37 +54,39 @@ class PlausibleTwigExtension extends Twig_Extension
         $h = floor($seconds / 3600);
         $m = floor(($seconds % 3600) / 60);
         $s = $seconds % 60;
-        return sprintf("%dh %2dm %02ds", $h, $m, $s);
+
+        $hours = sprintf("%dh", $h);
+        $minsAndSecs = sprintf("%2dm %02ds",$m,$s);
+        return ($hours != '0h' ? $hours.' ' : null).$minsAndSecs;
     }
 
     public function prettyCount($value)
     {
-        $count = number_format($value);
-        $input_count = substr_count($count, ',');
-
-        if($input_count != '0')
+        if ($value >= 1000 && $value < 1000000)
         {
-            if($input_count == '1')
+            $thousands = number_format($value/100,0,'','') / 10;
+            if ($thousands == number_format($thousands) || $value >= 100000)
             {
-                $formattedCount = substr($count, 0, -4).'k';
-            }
-            elseif($input_count == '2')
-            {
-                $formattedCount = substr($count, 0, -8).'mil';
-            }
-            elseif($input_count == '3')
-            {
-                $formattedCount = substr($count, 0,  -12).'bil';
+                return number_format($thousands).'k';
             }
             else
             {
-                return;
+                return $thousands.'k';
             }
-            return $formattedCount;
         }
-        else
+
+        if ($value >= 1000000 && $value < 1000000000)
         {
-            return $count;
+            $millions = number_format($value/100000,0,'','') / 10;
+            if ($millions == number_format($millions))
+            {
+                return number_format($millions).'m';
+            }
+            else
+            {
+                return $millions.'m';
+            }
         }
+        return number_format($value);
     }
 }

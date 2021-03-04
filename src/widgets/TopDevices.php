@@ -28,7 +28,7 @@ class TopDevices extends Widget
     // Public Properties
     // =========================================================================
 
-    public $timePeriod = '6mo';
+    public $timePeriod = '30d';
 
     // Static Methods
     // =========================================================================
@@ -97,7 +97,7 @@ class TopDevices extends Widget
         if (!$results)
         {
             $results = Plausible::$plugin->plausible->getTopDevices($this->timePeriod);
-            Craft::$app->getCache()->set($cacheKey, $results, 120);
+            Craft::$app->getCache()->set($cacheKey, $results, 300);
         }
 
         $visitorCacheKey = 'plausible:totalVisitors'.$this->timePeriod;
@@ -105,7 +105,7 @@ class TopDevices extends Widget
         if (!$visitors)
         {
             $visitors = Plausible::$plugin->plausible->getVisitors($this->timePeriod);
-            Craft::$app->getCache()->set($visitorCacheKey, $visitors, 120);
+            Craft::$app->getCache()->set($visitorCacheKey, $visitors, 300);
         }
 
         return Craft::$app->getView()->renderTemplate(

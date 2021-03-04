@@ -28,7 +28,7 @@ class Overview extends Widget
     // Public Properties
     // =========================================================================
 
-    public $timePeriod = '6mo';
+    public $timePeriod = '30d';
 
     // Static Methods
     // =========================================================================
@@ -98,7 +98,7 @@ class Overview extends Widget
         if (!$results)
         {
             $results = Plausible::$plugin->plausible->getOverview($this->timePeriod);
-            Craft::$app->getCache()->set($cacheKey, $results, 120);
+            Craft::$app->getCache()->set($cacheKey, $results, 300);
         }
 
         $timeCacheKey = 'plausible:timeseries'.$this->timePeriod;
@@ -107,7 +107,7 @@ class Overview extends Widget
         if (!$timeResults)
         {
             $timeResults = Plausible::$plugin->plausible->getTimeSeries($this->timePeriod);
-            Craft::$app->getCache()->set($timeCacheKey, $timeResults, 120);
+            Craft::$app->getCache()->set($timeCacheKey, $timeResults, 300);
         }
 
         return Craft::$app->getView()->renderTemplate(
