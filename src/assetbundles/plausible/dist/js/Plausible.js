@@ -22,6 +22,9 @@ var chart = new frappe.Chart("#chart", {
 	    regionFill: 1,
 	    dotSize: 5
 	},
+    tooltipOptions: {
+        formatTooltipY: d => d + ' visitors',
+    },
     height: 250,
     colors: ['#0594D1']
 })

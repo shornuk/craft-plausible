@@ -3,8 +3,8 @@
 	{% if results.error is defined %}
 		<p class="error">{{ results.error }}</p>
 	{% else %}
-		{% set max = results.results|first %}
-		{% for result in results.results %}
+		{% set max = results|first %}
+		{% for result in results %}
 			<tr>
 
 				{% set uri = result.page|prepUri %}

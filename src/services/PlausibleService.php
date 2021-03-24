@@ -86,6 +86,7 @@ class PlausibleService extends Component
     public function getOverview($timePeriod = '30d')
     {
 
+        // $format = 'https://plausible.io/api/v1/stats/aggregate?site_id=%1$s&period=%2$s&metrics=visitors,pageviews,bounce_rate,visit_duration';
         $format = 'https://plausible.io/api/v1/stats/aggregate?site_id=%1$s&period=%2$s&compare=previous_period&metrics=visitors,pageviews,bounce_rate,visit_duration';
         $url = sprintf($format, Craft::parseEnv($this->settings->siteId), $timePeriod);
 
@@ -133,7 +134,7 @@ class PlausibleService extends Component
             $result = json_decode($e->getResponse()->getBody()->getContents());
         }
 
-        return $result;
+        return $result->results;
     }
 
     public function timeLabelize($value = null)

@@ -21,3 +21,20 @@
 		<div class="value">{{ value }}</div>
 	</td>
 {% endmacro %}
+
+{% macro overviewStat(config) %}
+	{% set results = config.results %}
+	<div>
+		<p class="overview-title">{{ config.title }}</p>
+		<p class="overview-value">
+			{{ results.value|prettyCount }}
+
+			{% set change = results.change > 0 ? 'up' : results.change < 0 ? 'down' : 'same' %}
+
+			<span class="percentage">
+				<span class="{{ change  }}">{{ results.change > 0 ? '↑' : (results.change < 0 ? '↓' : '~') }}</span>
+				{{ results.change|replace('-', '') }}%
+			</span>
+		</p>
+	</div>
+{% endmacro %}

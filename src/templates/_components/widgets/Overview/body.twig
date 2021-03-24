@@ -1,10 +1,9 @@
+{% from "plausible/_macros" import overviewStat %}
 <div class="fullwidth overview-grid">
 	{% if results.error is defined %}
 		<p class="error">{{ results.error }}</p>
 	{% else %}
-		{{ d(results)}}
-		{# {{ d(timeResults)}} #}
-		{# <div>
+		<div>
 			<p class="overview-title">Unique Visitors</p>
 			<p class="overview-value">
 				{{ results.visitors.value|prettyCount }}
@@ -42,13 +41,13 @@
 				{% set change = changeValue > 0 ? 'down' : changeValue < 0 ? 'up' : 'same' %}
 				{% set icon = changeValue > 0 ? '↑' : changeValue < 0 ? '↓' : '--' %}
 				<span class="percentage"><span class="{{ change }}">{{ icon }}</span>{{ results.bounce_rate.change|replace('-', '') }}%</span></p>
-		</div>#}
+		</div>
 	{% endif %}
 </div>
-{# <div class="fullwidth">
+<div class="fullwidth">
 	{% set labels %}
-		{% for label in timeResults.results %}
-			"{{ label.date }}"{{ not loop.last ? ', ' }}
+		{% for label in timeResults %}
+			"{{ period == 'day' ? label.date|date('ga') : label.date|date('D, j M') }}"{{ not loop.last ? ', ' }}
 		{% endfor %}
 	{% endset %}
 	<script type="text/javascript">
@@ -56,11 +55,11 @@
 		    labels: [{{ labels }}],
 		    datasets: [
 		        {
-		            values: [{{ timeResults.results|map(r => r.visitors)|join(', ') }}]
+		            values: [{{ timeResults|map(r => r.visitors)|join(', ') }}]
 		        }
 		    ]
 		}
 	</script>
 	<div class="overview-chart" id="chart"></div>
-</div> #}
+</div>
 

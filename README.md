@@ -29,4 +29,4 @@ To install the plugin, follow these instructions.
 
 You'll need to enter your Plausible API key, (can be generated within your account settings) and the Site ID you wish to display data for. This is usually just the domain, eg. domain.com
 
-Brought to you by [Sean Hill](https://shorn.co.uk)
+Brought to you by [Shorn](https://shorn.co.uk)

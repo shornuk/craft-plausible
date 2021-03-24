@@ -4,13 +4,13 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](http://keepachangelog.com/) and this project adheres to [Semantic Versioning](http://semver.org/).
 
-## 1.0.4 - Unreleased
+## 1.0.4 - 2021-03-24
 
 #### Added
 - Top Devices widget
 - Top Browsers widget
 - Comparison percentage to previous period
-- Widget data is now cached to prevent overloading api (default 120 seconds)
+- Widget data is now cached to prevent overloading api (default 5 minutes)
 - Added chart to overview
 
 #### Changed

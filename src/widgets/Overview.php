@@ -113,6 +113,7 @@ class Overview extends Widget
         return Craft::$app->getView()->renderTemplate(
             'plausible/_components/widgets/Overview/body',
             [
+                'period' => $this->timePeriod,
                 'results' => $results,
                 'timeResults' => $timeResults
             ]

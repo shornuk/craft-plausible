@@ -3,8 +3,8 @@
 	{% if results.error is defined %}
 		<p class="error">{{ results.error }}</p>
 	{% else %}
-		{% for result in results.results %}
-			{% set max = results.results|first %}
+		{% for result in results %}
+			{% set max = results|first %}
 			<tr>
 				{% set text %}
 					<span class="device">
