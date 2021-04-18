@@ -34,9 +34,10 @@ class PlausibleTwigExtension extends Twig_Extension
         ];
     }
 
-    public function prepUri($sting)
+    public function prepUri($string)
     {
-        return ltrim($sting, '/');
+
+        return trim($string, '/');
     }
 
     public function timeLabelize($value)

@@ -8,7 +8,7 @@
 			<tr>
 
 				{% set uri = result.page|prepUri %}
-		        {% set entry = craft.entries().uri(uri|literal).one() %}
+				{% set entry = craft.entries().uri(uri|literal).one() %}
 
 				{{ resultBar({
 					bg: {
