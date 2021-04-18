@@ -1,0 +1,10 @@
+<table class="fullwidth">
+	{% if results.error is defined %}
+		<p class="error">{{ results.error }}</p>
+	{% else %}
+		<div class="current">
+			<p>{{ results }}</p>
+		</div>
+
+	{% endif %}
+</table>

@@ -94,3 +94,12 @@
 	display: flex;
 	align-items: center;
 }
+
+.current {
+	margin: 0;
+	font-weight: 600;
+	font-size: 32px;
+	padding-bottom: 12px;
+	text-align: center;
+	padding: 12px 0;
+}

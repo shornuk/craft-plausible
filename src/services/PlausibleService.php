@@ -42,6 +42,13 @@ class PlausibleService extends Component
         $this->settings = Plausible::$plugin->getSettings();
     }
 
+    public function getCurrentVisitors()
+    {
+        $format = 'https://plausible.io/api/v1/stats/realtime/visitors?site_id=%1$s';
+        $url = sprintf($format, Craft::parseEnv($this->settings->siteId));
+        return $this->queryApi($url);
+    }
+
 
     public function getTopPages($limit = 5, $timePeriod = '30d')
     {
@@ -134,8 +141,9 @@ class PlausibleService extends Component
             $result = json_decode($e->getResponse()->getBody()->getContents());
         }
 
-        return $result->results;
+        return is_object($result) ? $result->results : $result;
     }
+
 
     public function timeLabelize($value = null)
     {
