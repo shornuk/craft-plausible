@@ -4,13 +4,14 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](http://keepachangelog.com/) and this project adheres to [Semantic Versioning](http://semver.org/).
 
-## 1.0.5 - Unreleased
+## 1.0.5 - 2021-10-23
 
 #### Added
 - Current Visitors widget
 
 #### Fixed
-- Trailing and leading slashes in URI's. (https://github.com/shornuk/craft-plausible/issues/7)
+- Fixed error that would occur when widgets have been added and then the API becomes invalid/unavailable. ([#8](https://github.com/shornuk/craft-plausible/issues/8) & [#9](https://github.com/shornuk/craft-plausible/issues/8))
+- Trailing and leading slashes in URI's. ([#7](https://github.com/shornuk/craft-plausible/issues/7))
 
 ## 1.0.4 - 2021-03-24
 
