@@ -75,9 +75,7 @@ class PlausibleService extends Component
 
         $format = 'https://plausible.io/api/v1/stats/breakdown?site_id=%1$s&period=%2$s&property=visit:browser&limit=%3$s';
         $url = sprintf($format, Craft::parseEnv($this->settings->siteId), $timePeriod, $limit);
-
         return $this->queryApi($url);
-
     }
 
     public function getTopDevices($timePeriod = '30d')
@@ -141,7 +139,12 @@ class PlausibleService extends Component
             $result = json_decode($e->getResponse()->getBody()->getContents());
         }
 
-        return is_object($result) ? $result->results : $result;
+        if (is_object($result)) {
+            if (property_exists($result, 'results')) {
+                return $result->results;
+            }
+        }
+        return $result;
     }
 
 
