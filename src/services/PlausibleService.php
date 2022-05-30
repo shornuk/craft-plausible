@@ -36,7 +36,7 @@ class PlausibleService extends Component
     // Public Methods
     // =========================================================================
 
-    public function init()
+    public function init(): void
     {
         parent::init();
         $this->settings = Plausible::$plugin->getSettings();

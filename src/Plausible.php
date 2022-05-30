@@ -54,7 +54,7 @@ class Plausible extends Plugin
     /**
      * @var string
      */
-    public $schemaVersion = '1.0.0';
+    public $schemaVersion = '2.0.0';
 
     /**
      * @var bool
@@ -136,7 +136,7 @@ class Plausible extends Plugin
         Craft::$app->view->registerTwigExtension(new PlausibleTwigExtension);
     }
 
-    protected function createSettingsModel()
+    protected function createSettingsModel(): ?\craft\base\Model
     {
         return new Settings();
     }
@@ -144,7 +144,7 @@ class Plausible extends Plugin
     /**
      * @inheritdoc
      */
-    protected function settingsHtml(): string
+    protected function settingsHtml(): ?string
     {
         return Craft::$app->view->renderTemplate(
             'plausible/settings',

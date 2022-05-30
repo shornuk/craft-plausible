@@ -41,7 +41,7 @@ class CurrentVisitors extends Widget
         return Craft::t('plausible', 'Current Visitors');
     }
 
-    public static function icon()
+    public static function icon(): ?string
     {
         return Craft::getAlias("@shornuk/plausible/assetbundles/plausible/dist/img/Plausible-icon.svg");
     }
@@ -49,7 +49,7 @@ class CurrentVisitors extends Widget
     /**
      * @inheritdoc
      */
-    public static function maxColspan()
+    public static function maxColspan(): ?int
     {
         return null;
     }
@@ -57,7 +57,7 @@ class CurrentVisitors extends Widget
     // Public Methods
     // =========================================================================
 
-    public function getTitle(): string
+    public function getTitle(): ?string
     {
         if (!isset($title)) {
             $title = Craft::t('plausible', 'Current Visitors');
@@ -68,7 +68,7 @@ class CurrentVisitors extends Widget
     /**
      * @inheritdoc
      */
-    public function getBodyHtml()
+    public function getBodyHtml(): ?string
     {
         Craft::$app->getView()->registerAssetBundle(PlausibleAsset::class);
 

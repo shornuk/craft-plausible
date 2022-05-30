@@ -21,16 +21,16 @@ use Twig_SimpleFilter;
  * @since     1.0.0
  */
 
-class PlausibleTwigExtension extends Twig_Extension
+class PlausibleTwigExtension extends \Twig\Extension\AbstractExtension
 {
     public function getFilters(): array
     {
         return [
-            new Twig_SimpleFilter('timeLabelize', [$this, 'timeLabelize']),
-            new Twig_SimpleFilter('prettyTime', [$this, 'prettyTime']),
-            new Twig_SimpleFilter('prettyCount', [$this, 'prettyCount']),
-            new Twig_SimpleFilter('asPercentageOf', [$this, 'asPercentageOf']),
-            new Twig_SimpleFilter('prepUri', [$this, 'prepUri']),
+            new \Twig\TwigFilter('timeLabelize', [$this, 'timeLabelize']),
+            new \Twig\TwigFilter('prettyTime', [$this, 'prettyTime']),
+            new \Twig\TwigFilter('prettyCount', [$this, 'prettyCount']),
+            new \Twig\TwigFilter('asPercentageOf', [$this, 'asPercentageOf']),
+            new \Twig\TwigFilter('prepUri', [$this, 'prepUri']),
         ];
     }
 

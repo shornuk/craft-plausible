@@ -41,7 +41,7 @@ class Overview extends Widget
         return Craft::t('plausible', 'Overview');
     }
 
-    public static function icon()
+    public static function icon(): ?string
     {
         return Craft::getAlias("@shornuk/plausible/assetbundles/plausible/dist/img/Plausible-icon.svg");
     }
@@ -49,7 +49,7 @@ class Overview extends Widget
     /**
      * @inheritdoc
      */
-    public static function maxColspan()
+    public static function maxColspan(): ?int
     {
         return null;
     }
@@ -57,7 +57,7 @@ class Overview extends Widget
     // Public Methods
     // =========================================================================
 
-    public function getTitle(): string
+    public function getTitle(): ?string
     {
         if (!isset($title)) {
             $title = Craft::t('plausible', 'Overview');
@@ -75,7 +75,7 @@ class Overview extends Widget
     /**
      * @inheritdoc
      */
-    public function getSettingsHtml()
+    public function getSettingsHtml(): ?string
     {
         return Craft::$app->getView()->renderTemplate(
             'plausible/_components/widgets/Overview/settings',
@@ -88,7 +88,7 @@ class Overview extends Widget
     /**
      * @inheritdoc
      */
-    public function getBodyHtml()
+    public function getBodyHtml(): ?string
     {
         Craft::$app->getView()->registerAssetBundle(PlausibleAsset::class);
 
