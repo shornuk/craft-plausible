@@ -1,4 +1,4 @@
-# Plausible plugin for Craft CMS 3.x
+# Plausible plugin for Craft CMS
 
 <!-- <img src="resources/img/plugin-logo.svg" width="100" alt="Plausible Logo"> -->
 
@@ -8,7 +8,7 @@ Plausible is a Craft CMS plugin that gives you handy dashboard widgets to displa
 
 ## Requirements
 
-This plugin requires Craft CMS 3.0.0 or later.
+This plugin requires Craft CMS 4.0.0 or later.
 
 ## Installation
 
