@@ -54,17 +54,17 @@ class Plausible extends Plugin
     /**
      * @var string
      */
-    public $schemaVersion = '2.0.0';
+    public string $schemaVersion = '2.0.0';
 
     /**
      * @var bool
      */
-    public $hasCpSettings = true;
+    public bool $hasCpSettings = true;
 
     /**
      * @var bool
      */
-    public $hasCpSection = false;
+    public bool $hasCpSection = false;
 
     // Public Methods
     // =========================================================================
