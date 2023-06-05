@@ -97,7 +97,7 @@ class TopCountries extends Widget
         $results = Craft::$app->getCache()->get($cacheKey);
         if (!$results)
         {
-            $results = Plausible::$plugin->plausible->getTopCountries($this->timePeriod);
+            $results = Plausible::$plugin->plausible->getTopCountries($this->limit, $this->timePeriod);
             Craft::$app->getCache()->set($cacheKey, $results, 300);
         }
 
