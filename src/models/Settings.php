@@ -55,9 +55,9 @@ class Settings extends Model
     public function attributeLabels()
     {
         $labels = parent::attributeLabels();
-        $labels['baseUrl'] = 'Base URL';
-        $labels['apiKey'] = 'API Key';
-        $labels['siteId'] = 'Site ID';
+        $labels['baseUrl'] = Craft::t('plausible','Base URL');
+        $labels['apiKey'] = Craft::t('plausible','API Key');
+        $labels['siteId'] = Craft::t('plausible','Site ID');
 
         return $labels;
     }
