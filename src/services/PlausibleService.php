@@ -78,6 +78,14 @@ class PlausibleService extends Component
         return $this->queryApi($uri);
     }
 
+    public function getTopCountries($limit = 5, $timePeriod = '30d')
+    {
+        $format = 'breakdown?site_id=%1$s&period=%2$s&property=visit:country';
+        $uri = sprintf($format, Craft::parseEnv($this->settings->siteId), $timePeriod, $limit);
+
+        return $this->queryApi($uri);
+    }
+
     public function getTopDevices($timePeriod = '30d')
     {
 
@@ -86,14 +94,6 @@ class PlausibleService extends Component
 
         return $this->queryApi($uri);
 
-    }
-
-    public function getTopCountries($timePeriod = '30d')
-    {
-        $format = 'breakdown?site_id=%1$s&period=%2$s&property=visit:country';
-        $uri = sprintf($format, Craft::parseEnv($this->settings->siteId), $timePeriod);
-
-        return $this->queryApi($uri);
     }
 
     public function getOverview($timePeriod = '30d')
