@@ -34,6 +34,13 @@ class TopCountries extends Widget
     // Static Methods
     // =========================================================================
 
+    protected function defineRules(): array
+    {
+        $rules = parent::defineRules();
+        $rules[] = [['limit'], 'integer', 'max' => 20];
+        return $rules;
+    }
+
     /**
      * @inheritdoc
      */
