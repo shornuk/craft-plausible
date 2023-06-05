@@ -8,6 +8,7 @@
 
 namespace shornuk\plausible\widgets;
 
+use League\ISO3166\ISO3166;
 use shornuk\plausible\Plausible;
 use shornuk\plausible\services\PlausibleService;
 use shornuk\plausible\assetbundles\plausible\PlausibleAsset;
@@ -105,6 +106,12 @@ class TopCountries extends Widget
         if (!$results)
         {
             $results = Plausible::$plugin->plausible->getTopCountries($this->limit, $this->timePeriod);
+
+            foreach ($results as &$result) {
+                $data = (new ISO3166())->alpha2($result['country']);
+                $result['country'] = $data['name'] ?? $result['country'];
+            }
+
             Craft::$app->getCache()->set($cacheKey, $results, 300);
         }
 
