@@ -16,6 +16,7 @@ use shornuk\plausible\widgets\TopPages;
 use shornuk\plausible\widgets\TopSources;
 use shornuk\plausible\widgets\TopDevices;
 use shornuk\plausible\widgets\TopBrowsers;
+use shornuk\plausible\widgets\TopCountries;
 use shornuk\plausible\widgets\Overview;
 use shornuk\plausible\twigextensions\PlausibleTwigExtension;
 
