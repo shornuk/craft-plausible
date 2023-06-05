@@ -93,6 +93,7 @@ class Plausible extends Plugin
                 $event->types[] = TopSources::class;
                 $event->types[] = TopDevices::class;
                 $event->types[] = TopBrowsers::class;
+                $event->types[] = TopCountries::class;
             }
         );
 
