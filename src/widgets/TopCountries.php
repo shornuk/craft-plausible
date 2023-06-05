@@ -108,8 +108,10 @@ class TopCountries extends Widget
             $results = Plausible::$plugin->plausible->getTopCountries($this->limit, $this->timePeriod);
 
             foreach ($results as &$result) {
-                $data = (new ISO3166())->alpha2($result['country']);
-                $result['country'] = $data['name'] ?? $result['country'];
+                if (!empty($result->country)) {
+                    $data = (new ISO3166())->alpha2($result->country);
+                    $result->country = $data['name'] ?? $result->country;
+                }
             }
 
             Craft::$app->getCache()->set($cacheKey, $results, 300);
