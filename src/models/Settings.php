@@ -51,4 +51,14 @@ class Settings extends Model
             [['baseUrl', 'apiKey', 'siteId'], 'required'],
         ];
     }
+
+    public function attributeLabels()
+    {
+        $labels = parent::attributeLabels();
+        $labels['baseUrl'] = 'Base URL';
+        $labels['apiKey'] = 'API Key';
+        $labels['siteId'] = 'Site ID';
+
+        return $labels;
+    }
 }
