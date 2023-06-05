@@ -101,7 +101,7 @@ class TopCountries extends Widget
     {
         Craft::$app->getView()->registerAssetBundle(PlausibleAsset::class);
 
-        $cacheKey = 'plausible:topCountries'.$this->timePeriod;
+        $cacheKey = 'plausible:topCountries'.$this->timePeriod.$this->limit;
         $results = Craft::$app->getCache()->get($cacheKey);
         if (!$results)
         {
