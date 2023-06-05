@@ -8,7 +8,7 @@
 
 namespace shornuk\plausible\widgets;
 
-use League\ISO3166\ISO3166;
+use Locale;
 use shornuk\plausible\Plausible;
 use shornuk\plausible\services\PlausibleService;
 use shornuk\plausible\assetbundles\plausible\PlausibleAsset;
@@ -109,8 +109,7 @@ class TopCountries extends Widget
 
             foreach ($results as &$result) {
                 if (!empty($result->country)) {
-                    $data = (new ISO3166())->alpha2($result->country);
-                    $result->country = $data['name'] ?? $result->country;
+                    $result->country = Locale::getDisplayRegion('-' . $data['name'], Craft::$app->getUser()->getIdentity()->getPreferredLanguage());
                 }
             }
 
