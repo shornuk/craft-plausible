@@ -44,84 +44,84 @@ class PlausibleService extends Component
 
     public function getCurrentVisitors()
     {
-        $format = 'https://plausible.io/api/v1/stats/realtime/visitors?site_id=%1$s';
-        $url = sprintf($format, Craft::parseEnv($this->settings->siteId));
-        return $this->queryApi($url);
+        $format = 'realtime/visitors?site_id=%1$s';
+        $uri = sprintf($format, Craft::parseEnv($this->settings->siteId));
+        return $this->queryApi($uri);
     }
 
 
     public function getTopPages($limit = 5, $timePeriod = '30d')
     {
 
-        $format = 'https://plausible.io/api/v1/stats/breakdown?site_id=%1$s&period=%2$s&property=event:page&limit=%3$s';
-        $url = sprintf($format, Craft::parseEnv($this->settings->siteId), $timePeriod, $limit);
+        $format = 'breakdown?site_id=%1$s&period=%2$s&property=event:page&limit=%3$s';
+        $uri = sprintf($format, Craft::parseEnv($this->settings->siteId), $timePeriod, $limit);
 
-        return $this->queryApi($url);
+        return $this->queryApi($uri);
 
     }
 
     public function getTopSources($limit = 5, $timePeriod = '30d')
     {
 
-        $format = 'https://plausible.io/api/v1/stats/breakdown?site_id=%1$s&period=%2$s&property=visit:source&limit=%3$s';
-        $url = sprintf($format, Craft::parseEnv($this->settings->siteId), $timePeriod, $limit);
+        $format = 'breakdown?site_id=%1$s&period=%2$s&property=visit:source&limit=%3$s';
+        $uri = sprintf($format, Craft::parseEnv($this->settings->siteId), $timePeriod, $limit);
 
-        return $this->queryApi($url);
+        return $this->queryApi($uri);
 
     }
 
     public function getTopBrowsers($limit = 5, $timePeriod = '30d')
     {
 
-        $format = 'https://plausible.io/api/v1/stats/breakdown?site_id=%1$s&period=%2$s&property=visit:browser&limit=%3$s';
-        $url = sprintf($format, Craft::parseEnv($this->settings->siteId), $timePeriod, $limit);
-        return $this->queryApi($url);
+        $format = 'breakdown?site_id=%1$s&period=%2$s&property=visit:browser&limit=%3$s';
+        $uri = sprintf($format, Craft::parseEnv($this->settings->siteId), $timePeriod, $limit);
+        return $this->queryApi($uri);
     }
 
     public function getTopDevices($timePeriod = '30d')
     {
 
-        $format = 'https://plausible.io/api/v1/stats/breakdown?site_id=%1$s&period=%2$s&property=visit:device';
-        $url = sprintf($format, Craft::parseEnv($this->settings->siteId), $timePeriod);
+        $format = 'breakdown?site_id=%1$s&period=%2$s&property=visit:device';
+        $uri = sprintf($format, Craft::parseEnv($this->settings->siteId), $timePeriod);
 
-        return $this->queryApi($url);
+        return $this->queryApi($uri);
 
     }
 
     public function getOverview($timePeriod = '30d')
     {
 
-        // $format = 'https://plausible.io/api/v1/stats/aggregate?site_id=%1$s&period=%2$s&metrics=visitors,pageviews,bounce_rate,visit_duration';
-        $format = 'https://plausible.io/api/v1/stats/aggregate?site_id=%1$s&period=%2$s&compare=previous_period&metrics=visitors,pageviews,bounce_rate,visit_duration';
-        $url = sprintf($format, Craft::parseEnv($this->settings->siteId), $timePeriod);
+        // $format = 'aggregate?site_id=%1$s&period=%2$s&metrics=visitors,pageviews,bounce_rate,visit_duration';
+        $format = 'aggregate?site_id=%1$s&period=%2$s&compare=previous_period&metrics=visitors,pageviews,bounce_rate,visit_duration';
+        $uri = sprintf($format, Craft::parseEnv($this->settings->siteId), $timePeriod);
 
-        return $this->queryApi($url);
+        return $this->queryApi($uri);
 
     }
 
     public function getVisitors($timePeriod = '30d')
     {
 
-        $format = 'https://plausible.io/api/v1/stats/aggregate?site_id=%1$s&period=%2$s&metrics=visitors';
-        $url = sprintf($format, Craft::parseEnv($this->settings->siteId), $timePeriod);
+        $format = 'aggregate?site_id=%1$s&period=%2$s&metrics=visitors';
+        $uri = sprintf($format, Craft::parseEnv($this->settings->siteId), $timePeriod);
 
-        return $this->queryApi($url);
+        return $this->queryApi($uri);
 
     }
 
     public function getTimeSeries($timePeriod = '30d')
     {
 
-        $format = 'https://plausible.io/api/v1/stats/timeseries?site_id=%1$s&period=%2$s';
-        $url = sprintf($format, Craft::parseEnv($this->settings->siteId), $timePeriod);
+        $format = 'timeseries?site_id=%1$s&period=%2$s';
+        $uri = sprintf($format, Craft::parseEnv($this->settings->siteId), $timePeriod);
 
-        return $this->queryApi($url);
+        return $this->queryApi($uri);
 
     }
 
-    public function queryApi($url)
+    public function queryApi($uri)
     {
-        if (!$url) return false;
+        if (!$uri) return false;
 
         $headers = [
             'Authorization' => 'Bearer '.Craft::parseEnv($this->settings->apiKey),
@@ -130,6 +130,7 @@ class PlausibleService extends Component
 
         try {
             $guzzleClient = new Client;
+            $url = rtrim(Craft::parseEnv($this->settings->baseUrl), '/') . '/api/v1/stats/' . $uri;
             $response = $guzzleClient->request('GET', $url, [
                 'headers' => $headers
             ]);
