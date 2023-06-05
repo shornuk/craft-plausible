@@ -80,7 +80,7 @@ class PlausibleService extends Component
 
     public function getTopCountries($limit = 5, $timePeriod = '30d')
     {
-        $format = 'breakdown?site_id=%1$s&period=%2$s&property=visit:country';
+        $format = 'breakdown?site_id=%1$s&period=%2$s&property=visit:country&limit=%3$s';
         $uri = sprintf($format, Craft::parseEnv($this->settings->siteId), $timePeriod, $limit);
 
         return $this->queryApi($uri);
