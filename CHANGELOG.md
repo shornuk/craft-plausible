@@ -7,7 +7,8 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 ## 2.1.0 - Unreleased
 
 #### Added
-- Added the `Base URI` setting, making it possible to connect to the API when self-hosting Plausible.
+- Added a `Base URI` setting, making it possible to connect to the API when self-hosting Plausible.
+- Added a Top Countries dashboard widget.
 
 ## 2.0.0 - 2022-05-31
 
