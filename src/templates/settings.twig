@@ -15,6 +15,20 @@
 {% import "_includes/forms" as forms %}
 
 {{ forms.autosuggestField({
+    label: "Base URL"|t('plausible'),
+    instructions: 'The base URL to the API (only applicable when self-hosting Plausible).',
+    warning: (config.apiKey is defined ? macros.configWarning('baseUrl')),
+    id: 'baseUrl',
+    name: 'baseUrl',
+    suggestEnvVars: true,
+    suggestions: craft.cp.getEnvSuggestions(),
+    value: settings.baseUrl,
+    errors: settings.getErrors('baseUrl'),
+    required: true,
+    first: true,
+}) }}
+
+{{ forms.autosuggestField({
     label: "API Key"|t('plausible'),
     instructions: 'Enter your Plausible API Key <a href="https://plausible.io/settings" class="go" rel="noopener" target="_blank">Learn more</a>',
     warning: (config.apiKey is defined ? macros.configWarning('apiKey')),
