@@ -109,7 +109,10 @@ class TopCountries extends Widget
 
             foreach ($results as &$result) {
                 if (!empty($result->country)) {
-                    $result->country = Locale::getDisplayRegion('-' . $data['name'], Craft::$app->getUser()->getIdentity()->getPreferredLanguage());
+                    $result->country = Locale::getDisplayRegion(
+                        '-' . $result->country,
+                        Craft::$app->getUser()->getIdentity()->getPreferredLanguage(),
+                    );
                 }
             }
 
