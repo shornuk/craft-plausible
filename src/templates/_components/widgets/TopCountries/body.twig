@@ -1,0 +1,20 @@
+{% from "plausible/_macros" import resultBar %}
+<table class="fullwidth">
+	{% if results.error is defined %}
+		<p class="error">{{ results.error }}</p>
+	{% else %}
+		{% for result in results %}
+			{% set max = results|first %}
+			<tr>
+		        {{ resultBar({
+		        	bg: {
+		        		color: 'purple',
+		        		width: result.visitors|asPercentageOf(max.visitors)
+		        	},
+		        	text: result.country,
+		        	value: result.visitors
+		        }) }}
+		    </tr>
+	    {% endfor %}
+	{% endif %}
+</table>

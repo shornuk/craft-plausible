@@ -82,6 +82,9 @@
 .detail .bar-green {
 	background-color:rgba(236,253,245, 1);
 }
+.detail .bar-purple {
+	background-color:rgb(250, 237, 255, 1);
+}
 .detail .bar-red {
 	background-color:rgba(254,242,242, 1);
 }
