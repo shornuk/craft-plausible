@@ -44,6 +44,7 @@
 .overview-value .percentage {
 	font-size: 12px;
 	font-weight: 500;
+	vertical-align: middle;
 }
 
 .overview-value .up {
