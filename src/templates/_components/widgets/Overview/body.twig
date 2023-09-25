@@ -24,6 +24,15 @@
 			</p>
 		</div>
 		<div>
+			<p class="overview-title">Bounce rate</p>
+			<p class="overview-value">
+				{{ results.bounce_rate.value }}%
+				{% set changeValue = results.bounce_rate.change ?? 0 %}
+				{% set change = changeValue > 0 ? 'down' : changeValue < 0 ? 'up' : 'same' %}
+				{% set icon = changeValue > 0 ? '↑' : changeValue < 0 ? '↓' : '--' %}
+				<span class="percentage"><span class="{{ change }}">{{ icon }}</span>{{ results.bounce_rate.change|replace('-', '') }}%</span></p>
+		</div>
+		<div>
 			<p class="overview-title">Visit duration</p>
 			<p class="overview-value">
 				{{ results.visit_duration.value|prettyTime }}
@@ -32,15 +41,6 @@
 				{% set icon = changeValue > 0 ? '↑' : changeValue < 0 ? '↓' : '--' %}
 				<span class="percentage"><span class="{{ change }}">{{ icon }}</span>{{ results.visit_duration.change|replace('-', '') }}%</span>
 			</p>
-		</div>
-		<div>
-			<p class="overview-title">Bounce rate</p>
-			<p class="overview-value">
-				{{ results.bounce_rate.value }}%
-				{% set changeValue = results.bounce_rate.change ?? 0 %}
-				{% set change = changeValue > 0 ? 'down' : changeValue < 0 ? 'up' : 'same' %}
-				{% set icon = changeValue > 0 ? '↑' : changeValue < 0 ? '↓' : '--' %}
-				<span class="percentage"><span class="{{ change }}">{{ icon }}</span>{{ results.bounce_rate.change|replace('-', '') }}%</span></p>
 		</div>
 	{% endif %}
 </div>

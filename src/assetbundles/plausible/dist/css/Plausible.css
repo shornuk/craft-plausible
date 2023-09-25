@@ -21,12 +21,13 @@
  	margin-right: 48px;
 }
 
-
 .overview-title {
 	padding-top: 6px;
 	font-weight: 400;
 	margin-bottom: 4px;
+	text-transform: uppercase;
 }
+
 .overview-value {
 	margin: 0;
 	font-weight: 600;
@@ -43,6 +44,7 @@
 .overview-value .percentage {
 	font-size: 12px;
 	font-weight: 500;
+	vertical-align: middle;
 }
 
 .overview-value .up {
