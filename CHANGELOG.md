@@ -4,6 +4,12 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](http://keepachangelog.com/) and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## 2.1.1 - 2023-09-25
+
+#### Changed
+- Position of the “Bounce rate” and “Visit duration” stats ([#13](https://github.com/shornuk/craft-plausible/pull/13) - Thanks [@bencroker](https://github.com/bencroker)!)
+- Style tweaks
+
 ## 2.1.0 - 2023-06-14
 
 #### Added
