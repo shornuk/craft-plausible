@@ -16,7 +16,7 @@
 
 {{ forms.autosuggestField({
     label: "Base URL"|t('plausible'),
-    instructions: 'The base URL to the API (only applicable when self-hosting Plausible).',
+    instructions: "The base URL to the API (only applicable when self-hosting Plausible)."|t('plausible'),
     warning: (config.apiKey is defined ? macros.configWarning('baseUrl')),
     id: 'baseUrl',
     name: 'baseUrl',
@@ -30,7 +30,7 @@
 
 {{ forms.autosuggestField({
     label: "API Key"|t('plausible'),
-    instructions: 'Enter your Plausible API Key <a href="https://plausible.io/settings" class="go" rel="noopener" target="_blank">Learn more</a>',
+    instructions: 'Enter your Plausible API Key <a href="https://plausible.io/settings" class="go" rel="noopener" target="_blank">Learn more</a>'|t('plausible'),
     warning: (config.apiKey is defined ? macros.configWarning('apiKey')),
     id: 'apiKey',
     name: 'apiKey',
@@ -43,7 +43,7 @@
 
 {{ forms.autosuggestField({
     label: "Site ID"|t('plausible'),
-    instructions: 'Enter your Site ID (This is the domain as it is listed in your settings. Usually "domain.com")',
+    instructions: 'Enter your Site ID (This is the domain as it is listed in your settings. Usually "domain.com")'|t('plausible'),
     warning: (config.siteId is defined ? macros.configWarning('siteId')),
     id: 'siteId',
     name: 'siteId',
