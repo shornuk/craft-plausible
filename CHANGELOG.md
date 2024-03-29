@@ -4,10 +4,15 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](http://keepachangelog.com/) and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## 3.0.0 - 2024-03-29
+
+#### Added
+- Craft 5 support
+
 ## 2.2.0 - 2024-03-28
 
 #### Added
--Added PT translations ([#16](https://github.com/shornuk/craft-plausible/pull/16) - Thanks [@luizboaretto](https://github.com/luizboaretto)!)
+- Added PT translations ([#16](https://github.com/shornuk/craft-plausible/pull/16) - Thanks [@luizboaretto](https://github.com/luizboaretto)!)
 
 ## 2.1.1 - 2023-09-25
 
