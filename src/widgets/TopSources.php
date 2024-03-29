@@ -67,13 +67,11 @@ class TopSources extends Widget
 
     public function getTitle(): ?string
     {
-        if (!isset($title)) {
-            $title = Craft::t('plausible', 'Top Sources');
-        }
+        $title = Craft::t('plausible', 'Top Sources');
         $timePeriod = $this->timePeriod;
 
         if ($timePeriod) {
-            $title = Craft::t('app', 'Top Sources - {timePeriod}', [
+            $title = Craft::t('plausible', 'Top Sources - {timePeriod}', [
                 'timePeriod' => Craft::t('plausible', Plausible::$plugin->plausible->timeLabelize($timePeriod)),
             ]);
         }

@@ -59,13 +59,11 @@ class TopDevices extends Widget
 
     public function getTitle(): ?string
     {
-        if (!isset($title)) {
-            $title = Craft::t('plausible', 'Top Devices');
-        }
+        $title = Craft::t('plausible', 'Top Devices');
         $timePeriod = $this->timePeriod;
 
         if ($timePeriod) {
-            $title = Craft::t('app', 'Top Devices - {timePeriod}', [
+            $title = Craft::t('plausible', 'Top Devices - {timePeriod}', [
                 'timePeriod' => Craft::t('plausible', Plausible::$plugin->plausible->timeLabelize($timePeriod)),
             ]);
         }

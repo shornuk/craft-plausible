@@ -67,13 +67,11 @@ class TopBrowsers extends Widget
 
     public function getTitle(): ?string
     {
-        if (!isset($title)) {
-            $title = Craft::t('plausible', 'Top Browsers');
-        }
+        $title = Craft::t('plausible', 'Top Browsers');
         $timePeriod = $this->timePeriod;
 
         if ($timePeriod) {
-            $title = Craft::t('app', 'Top Browsers - {timePeriod}', [
+            $title = Craft::t('plausible', 'Top Browsers - {timePeriod}', [
                 'timePeriod' => Craft::t('plausible', Plausible::$plugin->plausible->timeLabelize($timePeriod)),
             ]);
         }

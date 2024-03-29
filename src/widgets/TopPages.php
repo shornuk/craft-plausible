@@ -67,13 +67,12 @@ class TopPages extends Widget
 
     public function getTitle(): ?string
     {
-        if (!isset($title)) {
-            $title = Craft::t('plausible', 'Top Pages');
-        }
+
+        $title = Craft::t('plausible', 'Top Pages');
         $timePeriod = $this->timePeriod;
 
         if ($timePeriod) {
-            $title = Craft::t('app', 'Top Pages - {timePeriod}', [
+            $title = Craft::t('plausible', 'Top Pages - {timePeriod}', [
                 'timePeriod' => Craft::t('plausible', Plausible::$plugin->plausible->timeLabelize($timePeriod)),
             ]);
         }

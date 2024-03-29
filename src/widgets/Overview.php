@@ -59,13 +59,11 @@ class Overview extends Widget
 
     public function getTitle(): ?string
     {
-        if (!isset($title)) {
-            $title = Craft::t('plausible', 'Overview');
-        }
+        $title = Craft::t('plausible', 'Overview');
         $timePeriod = $this->timePeriod;
 
         if ($timePeriod) {
-            $title = Craft::t('app', 'Overview - {timePeriod}', [
+            $title = Craft::t('plausible', 'Overview - {timePeriod}', [
                 'timePeriod' => Craft::t('plausible', Plausible::$plugin->plausible->timeLabelize($timePeriod)),
             ]);
         }

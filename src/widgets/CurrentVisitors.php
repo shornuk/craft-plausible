@@ -59,9 +59,7 @@ class CurrentVisitors extends Widget
 
     public function getTitle(): ?string
     {
-        if (!isset($title)) {
-            $title = Craft::t('plausible', 'Current Visitors');
-        }
+        $title = Craft::t('plausible', 'Current Visitors');
         return $title;
     }
 

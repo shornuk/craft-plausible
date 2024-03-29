@@ -68,13 +68,11 @@ class TopCountries extends Widget
 
     public function getTitle(): ?string
     {
-        if (!isset($title)) {
-            $title = Craft::t('plausible', 'Top Countries');
-        }
+        $title = Craft::t('plausible', 'Top Countries');
         $timePeriod = $this->timePeriod;
 
         if ($timePeriod) {
-            $title = Craft::t('app', 'Top Countries - {timePeriod}', [
+            $title = Craft::t('plausible', 'Top Countries - {timePeriod}', [
                 'timePeriod' => Craft::t('plausible', Plausible::$plugin->plausible->timeLabelize($timePeriod)),
             ]);
         }
