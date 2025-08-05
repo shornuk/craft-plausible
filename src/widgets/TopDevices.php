@@ -92,7 +92,7 @@ class TopDevices extends Widget
         Craft::$app->getView()->registerAssetBundle(PlausibleAsset::class);
 
         $cacheKey = 'plausibleV2:topDevices'.$this->timePeriod;
-        $results = false ?? Craft::$app->getCache()->get($cacheKey);
+        $results = Craft::$app->getCache()->get($cacheKey);
 
         if (!$results)
         {

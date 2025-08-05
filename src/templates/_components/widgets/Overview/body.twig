@@ -3,63 +3,65 @@
 	{% if results.error is defined %}
 		<p class="error">{{ results.error }}</p>
 	{% else %}
+		{% set results = results.results|first %}
+		{% set metrics = results.metrics %}
 		<div>
 			<p class="overview-title">{{ "Unique Visitors"|t('plausible') }}</p>
 			<p class="overview-value">
-				{{ results.visitors.value|prettyCount }}
-				{% set changeValue = results.visitors.change ?? 0 %}
-				{% set change = changeValue > 0 ? 'up' : changeValue < 0 ? 'down' : 'same' %}
-				{% set icon = changeValue > 0 ? '↑' : changeValue < 0 ? '↓' : '--' %}
-				<span class="percentage"><span class="{{ change }}">{{ icon }}</span>{{ results.visitors.change|replace('-', '') }}%</span>
+				{{ metrics[0]|prettyCount }}
+{#				{% set changeValue = results.visitors.change ?? 0 %}#}
+{#				{% set change = changeValue > 0 ? 'up' : changeValue < 0 ? 'down' : 'same' %}#}
+{#				{% set icon = changeValue > 0 ? '↑' : changeValue < 0 ? '↓' : '--' %}#}
+{#				<span class="percentage"><span class="{{ change }}">{{ icon }}</span>{{ results.visitors.change|replace('-', '') }}%</span>#}
 			</p>
 		</div>
 		<div>
 			<p class="overview-title">{{ "Total Pageviews"|t('plausible') }}</p>
 			<p class="overview-value">
-				{{ results.pageviews.value|prettyCount }}
-				{% set changeValue = results.pageviews.change ?? 0 %}
-				{% set change = changeValue > 0 ? 'up' : changeValue < 0 ? 'down' : 'same' %}
-				{% set icon = changeValue > 0 ? '↑' : changeValue < 0 ? '↓' : '--' %}
-				<span class="percentage"><span class="{{ change }}">{{ icon }}</span>{{ results.pageviews.change|replace('-', '') }}%</span>
+				{{ metrics[1]|prettyCount }}
+{#				{% set changeValue = results.pageviews.change ?? 0 %}#}
+{#				{% set change = changeValue > 0 ? 'up' : changeValue < 0 ? 'down' : 'same' %}#}
+{#				{% set icon = changeValue > 0 ? '↑' : changeValue < 0 ? '↓' : '--' %}#}
+{#				<span class="percentage"><span class="{{ change }}">{{ icon }}</span>{{ results.pageviews.change|replace('-', '') }}%</span>#}
 			</p>
 		</div>
 		<div>
 			<p class="overview-title">{{ "Bounce rate"|t('plausible') }}</p>
 			<p class="overview-value">
-				{{ results.bounce_rate.value }}%
-				{% set changeValue = results.bounce_rate.change ?? 0 %}
-				{% set change = changeValue > 0 ? 'down' : changeValue < 0 ? 'up' : 'same' %}
-				{% set icon = changeValue > 0 ? '↑' : changeValue < 0 ? '↓' : '--' %}
-				<span class="percentage"><span class="{{ change }}">{{ icon }}</span>{{ results.bounce_rate.change|replace('-', '') }}%</span></p>
+				{{ metrics[2] }}%
+{#				{% set changeValue = results.bounce_rate.change ?? 0 %}#}
+{#				{% set change = changeValue > 0 ? 'down' : changeValue < 0 ? 'up' : 'same' %}#}
+{#				{% set icon = changeValue > 0 ? '↑' : changeValue < 0 ? '↓' : '--' %}#}
+{#				<span class="percentage"><span class="{{ change }}">{{ icon }}</span>{{ results.bounce_rate.change|replace('-', '') }}%</span></p>#}
 		</div>
 		<div>
 			<p class="overview-title">{{ "Visit duration"|t('plausible') }}</p>
 			<p class="overview-value">
-				{{ results.visit_duration.value|prettyTime }}
-				{% set changeValue = results.visit_duration.change ?? 0 %}
-				{% set change = changeValue > 0 ? 'up' : changeValue < 0 ? 'down' : 'same' %}
-				{% set icon = changeValue > 0 ? '↑' : changeValue < 0 ? '↓' : '--' %}
-				<span class="percentage"><span class="{{ change }}">{{ icon }}</span>{{ results.visit_duration.change|replace('-', '') }}%</span>
+				{{ metrics[3]|prettyTime }}
+{#				{% set changeValue = results.visit_duration.change ?? 0 %}#}
+{#				{% set change = changeValue > 0 ? 'up' : changeValue < 0 ? 'down' : 'same' %}#}
+{#				{% set icon = changeValue > 0 ? '↑' : changeValue < 0 ? '↓' : '--' %}#}
+{#				<span class="percentage"><span class="{{ change }}">{{ icon }}</span>{{ results.visit_duration.change|replace('-', '') }}%</span>#}
 			</p>
 		</div>
 	{% endif %}
 </div>
-<div class="fullwidth">
-	{% set labels %}
-		{% for label in timeResults %}
-			"{{ period == 'day' ? label.date|date('ga') : label.date|date('D, j M') }}"{{ not loop.last ? ', ' }}
-		{% endfor %}
-	{% endset %}
-	<script type="text/javascript">
-		var data = {
-		    labels: [{{ labels }}],
-		    datasets: [
-		        {
-		            values: [{{ timeResults|map(r => r.visitors)|join(', ') }}]
-		        }
-		    ]
-		}
-	</script>
-	<div class="overview-chart" id="chart"></div>
-</div>
+{#<div class="fullwidth">#}
+{#	{% set labels %}#}
+{#		{% for label in timeResults %}#}
+{#			"{{ period == 'day' ? label.date|date('ga') : label.date|date('D, j M') }}"{{ not loop.last ? ', ' }}#}
+{#		{% endfor %}#}
+{#	{% endset %}#}
+{#	<script type="text/javascript">#}
+{#		var data = {#}
+{#		    labels: [{{ labels }}],#}
+{#		    datasets: [#}
+{#		        {#}
+{#		            values: [{{ timeResults|map(r => r.visitors)|join(', ') }}]#}
+{#		        }#}
+{#		    ]#}
+{#		}#}
+{#	</script>#}
+{#	<div class="overview-chart" id="chart"></div>#}
+{#</div>#}
 

@@ -8,8 +8,8 @@
 
 namespace shornuk\plausible\widgets;
 
+use shornuk\plausible\helpers\StringHelper;
 use shornuk\plausible\Plausible;
-use shornuk\plausible\services\PlausibleService;
 use shornuk\plausible\assetbundles\plausible\PlausibleAsset;
 
 use Craft;
@@ -28,7 +28,7 @@ class Overview extends Widget
     // Public Properties
     // =========================================================================
 
-    public $timePeriod = '30d';
+    public string $timePeriod = '30d';
 
     // Static Methods
     // =========================================================================
@@ -64,7 +64,7 @@ class Overview extends Widget
 
         if ($timePeriod) {
             $title = Craft::t('plausible', 'Overview - {timePeriod}', [
-                'timePeriod' => Craft::t('plausible', Plausible::$plugin->plausible->timeLabelize($timePeriod)),
+                'timePeriod' => Craft::t('plausible', StringHelper::timeLabelize($timePeriod)),
             ]);
         }
         return $title;
@@ -90,31 +90,46 @@ class Overview extends Widget
     {
         Craft::$app->getView()->registerAssetBundle(PlausibleAsset::class);
 
-        $cacheKey = 'plausible:overview'.$this->timePeriod;
-        $results = Craft::$app->getCache()->get($cacheKey);
+        $cacheKey = 'plausibleV2:overview'.$this->timePeriod;
+        $results = false ?? Craft::$app->getCache()->get($cacheKey);
 
         if (!$results)
         {
-            $results = Plausible::$plugin->plausible->getOverview($this->timePeriod);
+            $results = Plausible::$plugin->plausible->query([
+                'metrics' => ["visitors", "pageviews", "bounce_rate", "visit_duration"],
+                'date_range' => $this->timePeriod,
+            ]);
             Craft::$app->getCache()->set($cacheKey, $results, 300);
         }
 
-        $timeCacheKey = 'plausible:timeseries'.$this->timePeriod;
-        $timeResults = Craft::$app->getCache()->get($timeCacheKey);
+        $compareCacheKey = 'plausibleV2:overviewCompare'.$this->timePeriod;
+        $compareResults = false ?? Craft::$app->getCache()->get($compareCacheKey);
 
-
-        if (!$timeResults)
+        if (!$compareResults)
         {
-            $timeResults = Plausible::$plugin->plausible->getTimeSeries($this->timePeriod);
-            Craft::$app->getCache()->set($timeCacheKey, $timeResults, 300);
+            $compareResults = Plausible::$plugin->plausible->query([
+                'metrics' => ["visitors", "pageviews", "bounce_rate", "visit_duration"],
+                'date_range' => $this->timePeriod,
+            ]);
+            Craft::$app->getCache()->set($compareCacheKey, $results, 300);
         }
+
+//        $timeCacheKey = 'plausible:timeseries'.$this->timePeriod;
+//        $timeResults = Craft::$app->getCache()->get($timeCacheKey);
+//
+//
+//        if (!$timeResults)
+//        {
+//            $timeResults = Plausible::$plugin->plausible->getTimeSeries($this->timePeriod);
+//            Craft::$app->getCache()->set($timeCacheKey, $timeResults, 300);
+//        }
 
         return Craft::$app->getView()->renderTemplate(
             'plausible/_components/widgets/Overview/body',
             [
                 'period' => $this->timePeriod,
                 'results' => $results,
-                'timeResults' => $timeResults
+//                'timeResults' => $timeResults
             ]
         );
     }

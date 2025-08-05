@@ -74,7 +74,10 @@ class CurrentVisitors extends Widget
         $results = Craft::$app->getCache()->get($cacheKey);
         if (!$results)
         {
-            $results = Plausible::$plugin->plausible->getCurrentVisitors();
+             $visitors = Plausible::$plugin->plausible->query([
+                'metrics' => ['visitors'],
+                'date_range' => 'realtime',
+            ]);
             Craft::$app->getCache()->set($cacheKey, $results, 60);
         }
 
