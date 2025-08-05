@@ -46,22 +46,35 @@
 		</div>
 	{% endif %}
 </div>
-{#<div class="fullwidth">#}
-{#	{% set labels %}#}
-{#		{% for label in timeResults %}#}
-{#			"{{ period == 'day' ? label.date|date('ga') : label.date|date('D, j M') }}"{{ not loop.last ? ', ' }}#}
-{#		{% endfor %}#}
-{#	{% endset %}#}
-{#	<script type="text/javascript">#}
-{#		var data = {#}
-{#		    labels: [{{ labels }}],#}
-{#		    datasets: [#}
-{#		        {#}
-{#		            values: [{{ timeResults|map(r => r.visitors)|join(', ') }}]#}
-{#		        }#}
-{#		    ]#}
-{#		}#}
-{#	</script>#}
-{#	<div class="overview-chart" id="chart"></div>#}
-{#</div>#}
+
+{% if timeResults.error is defined %}
+	<p class="error">{{ results.error }}</p>
+{% else %}
+	{% set results = timeResults.results %}
+	{% if results == [] %}
+		{% set labels = timeResults.meta.time_labels %}
+		{% set values = range(1, timeResults.meta.time_labels|length)|map(i => 0) %}
+	{% else %}
+		{% set labels = results|map(r => r.dimensions|first) %}
+		{% set values = results|map(r => r.metrics|first) %}
+	{% endif %}
+
+	<div class="fullwidth">
+
+		{% set formattedLabels = labels|map(label => period == 'day' ? date(label)|date('ga') : date(label)|date('D, j M')) %}
+
+		<script type="text/javascript">
+			const data = {
+				labels: {{ formattedLabels|json_encode|raw }},
+				datasets: [
+					{
+						values: {{ values|json_encode|raw }}
+					}
+				]
+			};
+		</script>
+		<div class="overview-chart" id="chart"></div>
+	</div>
+{% endif %}
+
 

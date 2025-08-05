@@ -29,6 +29,7 @@ class Overview extends Widget
     // =========================================================================
 
     public string $timePeriod = '30d';
+    public string $timeDimension = 'time:day';
 
     // Static Methods
     // =========================================================================
@@ -114,22 +115,29 @@ class Overview extends Widget
             Craft::$app->getCache()->set($compareCacheKey, $results, 300);
         }
 
-//        $timeCacheKey = 'plausible:timeseries'.$this->timePeriod;
-//        $timeResults = Craft::$app->getCache()->get($timeCacheKey);
-//
-//
-//        if (!$timeResults)
-//        {
-//            $timeResults = Plausible::$plugin->plausible->getTimeSeries($this->timePeriod);
-//            Craft::$app->getCache()->set($timeCacheKey, $timeResults, 300);
-//        }
+        $timeCacheKey = 'plausibleV2:timeseries'.$this->timePeriod;
+        $timeResults = false ?? Craft::$app->getCache()->get($timeCacheKey);
+
+
+        if (!$timeResults)
+        {
+            $timeResults = Plausible::$plugin->plausible->query([
+                'metrics' => ["visitors"],
+                'date_range' => $this->timePeriod,
+                'dimensions' => [StringHelper::getTimeDimensionFromInterval($this->timePeriod)],
+                "include" => [
+                    "time_labels" => true
+                ]
+            ]);
+            Craft::$app->getCache()->set($timeCacheKey, $timeResults, 300);
+        }
 
         return Craft::$app->getView()->renderTemplate(
             'plausible/_components/widgets/Overview/body',
             [
                 'period' => $this->timePeriod,
                 'results' => $results,
-//                'timeResults' => $timeResults
+                'timeResults' => $timeResults
             ]
         );
     }

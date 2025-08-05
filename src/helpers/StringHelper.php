@@ -18,4 +18,14 @@ class StringHelper extends CraftStringHelper
         );
         return $periods[$value];
     }
+
+    public static function getTimeDimensionFromInterval($interval = '30d'): string
+    {
+        dump($interval);
+        return match (true) {
+    		$interval === '12mo' || $interval === '6mo' => 'time:month',
+            $interval === 'day' => 'time:hour',
+	        default => 'time:day',
+	    };
+    }
 }
