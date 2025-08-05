@@ -17,37 +17,29 @@ use Craft;
 use craft\base\Widget;
 
 /**
- * Top Pages Widget
+ * Overview Widget
  *
  * @author    Sean Hill
  * @package   Plausible
  * @since     1.0.0
  */
-class TopPages extends Widget
+class Test extends Widget
 {
 
     // Public Properties
     // =========================================================================
 
-    public int $limit = 4;
-    public string $timePeriod = '30d';
+    public $timePeriod = '30d';
 
     // Static Methods
     // =========================================================================
-
-    protected function defineRules(): array
-    {
-        $rules = parent::defineRules();
-        $rules[] = [['limit'], 'integer', 'max' => 20];
-        return $rules;
-    }
 
     /**
      * @inheritdoc
      */
     public static function displayName(): string
     {
-        return Craft::t('plausible', 'Top Pages');
+        return Craft::t('plausible', 'Test');
     }
 
     public static function icon(): ?string
@@ -68,13 +60,12 @@ class TopPages extends Widget
 
     public function getTitle(): ?string
     {
-
-        $title = Craft::t('plausible', 'Top Pages');
+        $title = Craft::t('plausible', 'Test');
         $timePeriod = $this->timePeriod;
 
         if ($timePeriod) {
-            $title = Craft::t('plausible', 'Top Pages - {timePeriod}', [
-                'timePeriod' => Craft::t('plausible', StringHelper::timeLabelize($timePeriod)),
+            $title = Craft::t('plausible', 'Test - {timePeriod}', [
+                'timePeriod' => Craft::t('plausible', Stringhelper::timeLabelize($timePeriod)),
             ]);
         }
         return $title;
@@ -86,7 +77,7 @@ class TopPages extends Widget
     public function getSettingsHtml(): ?string
     {
         return Craft::$app->getView()->renderTemplate(
-            'plausible/_components/widgets/TopPages/settings',
+            'plausible/_components/widgets/Test/settings',
             [
                 'widget' => $this
             ]
@@ -98,40 +89,12 @@ class TopPages extends Widget
      */
     public function getBodyHtml(): ?string
     {
-        Craft::$app->getView()->registerAssetBundle(PlausibleAsset::class);
-
-        $cacheKey = 'plausibleV2:topPages'.$this->timePeriod.$this->limit;
-        $results = Craft::$app->getCache()->get($cacheKey);
-        if (!$results)
-        {
-            $results = Plausible::$plugin->plausible->query([
-                'metrics' => ['visitors'],
-                'date_range' => $this->timePeriod,
-                'pagination' => [
-                    'limit' => $this->limit,
-                    'offset' => 0,
-                ],
-                "filters" => [
-                    [
-                        "is_not",
-                        "event:page",
-                        [""]
-                    ]
-                ],
-                "dimensions" => [
-                    "event:page"
-                ]
-            ]);
-
-            Craft::$app->getCache()->set($cacheKey, $results, 300);
-
-        }
-
         return Craft::$app->getView()->renderTemplate(
-            'plausible/_components/widgets/TopPages/body',
+            'plausible/_components/widgets/Test/body',
             [
-                'results' => $results
+                'results' => Plausible::$plugin->plausible->query()
             ]
         );
+
     }
 }

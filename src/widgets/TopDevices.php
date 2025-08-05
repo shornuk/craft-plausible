@@ -8,6 +8,7 @@
 
 namespace shornuk\plausible\widgets;
 
+use shornuk\plausible\helpers\StringHelper;
 use shornuk\plausible\Plausible;
 use shornuk\plausible\services\PlausibleService;
 use shornuk\plausible\assetbundles\plausible\PlausibleAsset;
@@ -28,7 +29,7 @@ class TopDevices extends Widget
     // Public Properties
     // =========================================================================
 
-    public $timePeriod = '30d';
+    public string $timePeriod = '30d';
 
     // Static Methods
     // =========================================================================
@@ -64,7 +65,7 @@ class TopDevices extends Widget
 
         if ($timePeriod) {
             $title = Craft::t('plausible', 'Top Devices - {timePeriod}', [
-                'timePeriod' => Craft::t('plausible', Plausible::$plugin->plausible->timeLabelize($timePeriod)),
+                'timePeriod' => Craft::t('plausible', StringHelper::timeLabelize($timePeriod)),
             ]);
         }
         return $title;
@@ -90,19 +91,36 @@ class TopDevices extends Widget
     {
         Craft::$app->getView()->registerAssetBundle(PlausibleAsset::class);
 
-        $cacheKey = 'plausible:topDevices'.$this->timePeriod;
-        $results = Craft::$app->getCache()->get($cacheKey);
+        $cacheKey = 'plausibleV2:topDevices'.$this->timePeriod;
+        $results = false ?? Craft::$app->getCache()->get($cacheKey);
+
         if (!$results)
         {
-            $results = Plausible::$plugin->plausible->getTopDevices($this->timePeriod);
+            $results = Plausible::$plugin->plausible->query([
+                'metrics' => ['visitors'],
+                'date_range' => $this->timePeriod,
+                "filters" => [
+                    [
+                        "is_not",
+                        "visit:device",
+                        [""]
+                    ]
+                ],
+                "dimensions" => [
+                    "visit:device"
+                ]
+            ]);
             Craft::$app->getCache()->set($cacheKey, $results, 300);
         }
 
-        $visitorCacheKey = 'plausible:totalVisitors'.$this->timePeriod;
+        $visitorCacheKey = 'plausibleV2:totalVisitors'.$this->timePeriod;
         $visitors = Craft::$app->getCache()->get($visitorCacheKey);
         if (!$visitors)
         {
-            $visitors = Plausible::$plugin->plausible->getVisitors($this->timePeriod);
+            $visitors = Plausible::$plugin->plausible->query([
+                'metrics' => ['visitors'],
+                'date_range' => $this->timePeriod,
+            ]);
             Craft::$app->getCache()->set($visitorCacheKey, $visitors, 300);
         }
 

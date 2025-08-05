@@ -3,16 +3,19 @@
 	{% if results.error is defined %}
 		<p class="error">{{ results.error }}</p>
 	{% else %}
+		{% set results = results.results %}
+		{% set max = results|first %}
 		{% for result in results %}
-			{% set max = results|first %}
+			{% set metric = result.metrics|first %}
+			{% set dimension = result.dimensions|first %}
 			<tr>
 		        {{ resultBar({
 		        	bg: {
 		        		color: 'red',
-		        		width: result.visitors|asPercentageOf(max.visitors)
+		        		width: metric|asPercentageOf(max.metrics|first)
 		        	},
-		        	text: result.browser,
-		        	value: result.visitors
+		        	text: dimension,
+		        	value: metric
 		        }) }}
 		    </tr>
 	    {% endfor %}

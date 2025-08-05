@@ -8,6 +8,7 @@
 
 namespace shornuk\plausible\widgets;
 
+use shornuk\plausible\helpers\StringHelper;
 use shornuk\plausible\Plausible;
 use shornuk\plausible\services\PlausibleService;
 use shornuk\plausible\assetbundles\plausible\PlausibleAsset;
@@ -28,8 +29,8 @@ class TopBrowsers extends Widget
     // Public Properties
     // =========================================================================
 
-    public $limit = 4;
-    public $timePeriod = '30d';
+    public int $limit = 4;
+    public string $timePeriod = '30d';
 
     // Static Methods
     // =========================================================================
@@ -72,7 +73,7 @@ class TopBrowsers extends Widget
 
         if ($timePeriod) {
             $title = Craft::t('plausible', 'Top Browsers - {timePeriod}', [
-                'timePeriod' => Craft::t('plausible', Plausible::$plugin->plausible->timeLabelize($timePeriod)),
+                'timePeriod' => Craft::t('plausible', StringHelper::timeLabelize($timePeriod)),
             ]);
         }
         return $title;
@@ -98,11 +99,24 @@ class TopBrowsers extends Widget
     {
         Craft::$app->getView()->registerAssetBundle(PlausibleAsset::class);
 
-        $cacheKey = 'plausible:topBrowsers'.$this->timePeriod.$this->limit;
-        $results = Craft::$app->getCache()->get($cacheKey);
+        $cacheKey = 'plausibleV2:topBrowsers'.$this->timePeriod.$this->limit;
+        $results = false ?? Craft::$app->getCache()->get($cacheKey);
         if (!$results)
         {
-            $results = Plausible::$plugin->plausible->getTopBrowsers($this->limit, $this->timePeriod);
+            $results = Plausible::$plugin->plausible->query([
+                'metrics' => ['visitors'],
+                'date_range' => $this->timePeriod,
+                "filters" => [
+                    [
+                        "is_not",
+                        "visit:browser",
+                        [""]
+                    ]
+                ],
+                "dimensions" => [
+                    "visit:browser"
+                ]
+            ]);
             Craft::$app->getCache()->set($cacheKey, $results, 300);
         }
 

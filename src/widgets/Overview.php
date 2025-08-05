@@ -102,6 +102,7 @@ class Overview extends Widget
         $timeCacheKey = 'plausible:timeseries'.$this->timePeriod;
         $timeResults = Craft::$app->getCache()->get($timeCacheKey);
 
+
         if (!$timeResults)
         {
             $timeResults = Plausible::$plugin->plausible->getTimeSeries($this->timePeriod);
