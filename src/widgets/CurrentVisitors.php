@@ -8,12 +8,15 @@
 
 namespace shornuk\plausible\widgets;
 
+use DateTimeImmutable;
 use shornuk\plausible\Plausible;
-use shornuk\plausible\services\PlausibleService;
 use shornuk\plausible\assetbundles\plausible\PlausibleAsset;
 
 use Craft;
 use craft\base\Widget;
+use DateTime;
+use DateTimeZone;
+use DateInterval;
 
 /**
  * Top Sources Widget
@@ -74,9 +77,17 @@ class CurrentVisitors extends Widget
         $results = Craft::$app->getCache()->get($cacheKey);
         if (!$results)
         {
-             $visitors = Plausible::$plugin->plausible->query([
+            $now = new DateTimeImmutable('now', new DateTimeZone(date('P')));
+            $fiveMinutesAgo = $now->sub(new DateInterval('PT5M'));
+
+            $dateRange = [
+                $fiveMinutesAgo->format(DateTime::ATOM),
+                $now->format(DateTime::ATOM)
+            ];
+
+            $results = Plausible::$plugin->plausible->query([
                 'metrics' => ['visitors'],
-                'date_range' => 'realtime',
+                'date_range' => $dateRange,
             ]);
             Craft::$app->getCache()->set($cacheKey, $results, 60);
         }

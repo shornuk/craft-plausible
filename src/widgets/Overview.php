@@ -27,7 +27,6 @@ class Overview extends Widget
 
     // Public Properties
     // =========================================================================
-
     public string $timePeriod = '30d';
     public string $timeDimension = 'time:day';
 
@@ -103,22 +102,24 @@ class Overview extends Widget
             Craft::$app->getCache()->set($cacheKey, $results, 300);
         }
 
-        $compareCacheKey = 'plausibleV2:overviewCompare'.$this->timePeriod;
-        $compareResults = false ?? Craft::$app->getCache()->get($compareCacheKey);
 
-        if (!$compareResults)
-        {
-            $compareResults = Plausible::$plugin->plausible->query([
-                'metrics' => ["visitors", "pageviews", "bounce_rate", "visit_duration"],
-                'date_range' => $this->timePeriod,
-            ]);
-            Craft::$app->getCache()->set($compareCacheKey, $results, 300);
-        }
+//        $compareCacheKey = 'plausibleV2:overviewCompare'.$this->timePeriod;
+//        $compareResults = false ?? Craft::$app->getCache()->get($compareCacheKey);
+//
+//        if (!$compareResults)
+//        {
+//            $compareResults = Plausible::$plugin->plausible->query([
+//                'metrics' => ["visitors", "pageviews", "bounce_rate", "visit_duration"],
+//                'date_range' => $this->timePeriod,
+//            ]);
+//            Craft::$app->getCache()->set($compareCacheKey, $results, 300);
+//        }
 
         $timeCacheKey = 'plausibleV2:timeseries'.$this->timePeriod;
-        $timeResults = false ?? Craft::$app->getCache()->get($timeCacheKey);
+        $timeResults = Craft::$app->getCache()->get($timeCacheKey);
 
-
+//        dump($timeResults);
+//        dump(StringHelper::getPreviousPeriodForInterval($this->timePeriod));
         if (!$timeResults)
         {
             $timeResults = Plausible::$plugin->plausible->query([

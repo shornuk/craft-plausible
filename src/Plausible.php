@@ -12,7 +12,6 @@ use shornuk\plausible\services\PlausibleService;
 use shornuk\plausible\variables\PlausibleVariable;
 use shornuk\plausible\models\Settings;
 use shornuk\plausible\widgets\CurrentVisitors;
-use shornuk\plausible\widgets\Test;
 use shornuk\plausible\widgets\TopPages;
 use shornuk\plausible\widgets\TopSources;
 use shornuk\plausible\widgets\TopDevices;
@@ -91,7 +90,6 @@ class Plausible extends Plugin
             function (RegisterComponentTypesEvent $event) {
                 $event->types[] = CurrentVisitors::class;
                 $event->types[] = TopPages::class;
-                $event->types[] = Test::class;
                 $event->types[] = Overview::class;
                 $event->types[] = TopSources::class;
                 $event->types[] = TopDevices::class;

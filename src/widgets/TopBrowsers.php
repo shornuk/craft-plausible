@@ -100,12 +100,16 @@ class TopBrowsers extends Widget
         Craft::$app->getView()->registerAssetBundle(PlausibleAsset::class);
 
         $cacheKey = 'plausibleV2:topBrowsers'.$this->timePeriod.$this->limit;
-        $results = false ?? Craft::$app->getCache()->get($cacheKey);
+        $results = Craft::$app->getCache()->get($cacheKey);
         if (!$results)
         {
             $results = Plausible::$plugin->plausible->query([
                 'metrics' => ['visitors'],
                 'date_range' => $this->timePeriod,
+                'pagination' => [
+                    'limit' => $this->limit,
+                    'offset' => 0,
+                ],
                 "filters" => [
                     [
                         "is_not",
