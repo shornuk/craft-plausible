@@ -2,7 +2,7 @@
     "name": "shornuk/craft-plausible",
     "description": "Plausible is a Craft CMS plugin that gives you handy dashboard widgets to display analytics data from Plausible.",
     "type": "craft-plugin",
-    "version": "dev-develop",
+    "version": "5.0.0",
     "keywords": [
         "craft",
         "cms",
