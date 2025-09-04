@@ -8,8 +8,8 @@
 
 namespace shornuk\plausible\widgets;
 
+use shornuk\plausible\helpers\StringHelper;
 use shornuk\plausible\Plausible;
-use shornuk\plausible\services\PlausibleService;
 use shornuk\plausible\assetbundles\plausible\PlausibleAsset;
 
 use Craft;
@@ -27,8 +27,8 @@ class Overview extends Widget
 
     // Public Properties
     // =========================================================================
-
-    public $timePeriod = '30d';
+    public string $timePeriod = '30d';
+    public string $timeDimension = 'time:day';
 
     // Static Methods
     // =========================================================================
@@ -59,15 +59,9 @@ class Overview extends Widget
 
     public function getTitle(): ?string
     {
-        $title = Craft::t('plausible', 'Overview');
-        $timePeriod = $this->timePeriod;
-
-        if ($timePeriod) {
-            $title = Craft::t('plausible', 'Overview - {timePeriod}', [
-                'timePeriod' => Craft::t('plausible', Plausible::$plugin->plausible->timeLabelize($timePeriod)),
-            ]);
-        }
-        return $title;
+        return Craft::t('plausible', 'Overview - {timePeriod}', [
+            'timePeriod' => Craft::t('plausible', StringHelper::timeLabelize($this->timePeriod)),
+        ]);
     }
 
     /**
@@ -90,21 +84,31 @@ class Overview extends Widget
     {
         Craft::$app->getView()->registerAssetBundle(PlausibleAsset::class);
 
-        $cacheKey = 'plausible:overview'.$this->timePeriod;
-        $results = Craft::$app->getCache()->get($cacheKey);
+        $cacheKey = 'plausibleV5:overview'.$this->timePeriod;
+        $results = false ?? Craft::$app->getCache()->get($cacheKey);
 
         if (!$results)
         {
-            $results = Plausible::$plugin->plausible->getOverview($this->timePeriod);
+            $results = Plausible::$plugin->plausible->query([
+                'metrics' => ["visitors", "pageviews", "bounce_rate", "visit_duration"],
+                'date_range' => $this->timePeriod,
+            ]);
             Craft::$app->getCache()->set($cacheKey, $results, 300);
         }
 
-        $timeCacheKey = 'plausible:timeseries'.$this->timePeriod;
+        $timeCacheKey = 'plausibleV5:timeseries'.$this->timePeriod;
         $timeResults = Craft::$app->getCache()->get($timeCacheKey);
 
         if (!$timeResults)
         {
-            $timeResults = Plausible::$plugin->plausible->getTimeSeries($this->timePeriod);
+            $timeResults = Plausible::$plugin->plausible->query([
+                'metrics' => ["visitors"],
+                'date_range' => $this->timePeriod,
+                'dimensions' => [StringHelper::getTimeDimensionFromInterval($this->timePeriod)],
+                "include" => [
+                    "time_labels" => true
+                ]
+            ]);
             Craft::$app->getCache()->set($timeCacheKey, $timeResults, 300);
         }
 

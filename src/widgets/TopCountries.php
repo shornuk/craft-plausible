@@ -9,6 +9,7 @@
 namespace shornuk\plausible\widgets;
 
 use Locale;
+use shornuk\plausible\helpers\StringHelper;
 use shornuk\plausible\Plausible;
 use shornuk\plausible\services\PlausibleService;
 use shornuk\plausible\assetbundles\plausible\PlausibleAsset;
@@ -29,8 +30,8 @@ class TopCountries extends Widget
     // Public Properties
     // =========================================================================
 
-    public $limit = 4;
-    public $timePeriod = '30d';
+    public int $limit = 4;
+    public string $timePeriod = '30d';
 
     // Static Methods
     // =========================================================================
@@ -68,15 +69,9 @@ class TopCountries extends Widget
 
     public function getTitle(): ?string
     {
-        $title = Craft::t('plausible', 'Top Countries');
-        $timePeriod = $this->timePeriod;
-
-        if ($timePeriod) {
-            $title = Craft::t('plausible', 'Top Countries - {timePeriod}', [
-                'timePeriod' => Craft::t('plausible', Plausible::$plugin->plausible->timeLabelize($timePeriod)),
-            ]);
-        }
-        return $title;
+        return Craft::t('plausible', 'Top Countries - {timePeriod}', [
+            'timePeriod' => Craft::t('plausible', StringHelper::timeLabelize($this->timePeriod)),
+        ]);
     }
 
     /**
@@ -99,20 +94,37 @@ class TopCountries extends Widget
     {
         Craft::$app->getView()->registerAssetBundle(PlausibleAsset::class);
 
-        $cacheKey = 'plausible:topCountries'.$this->timePeriod.$this->limit;
+        $cacheKey = 'plausibleV5:topCountries'.$this->timePeriod.$this->limit;
         $results = Craft::$app->getCache()->get($cacheKey);
         if (!$results)
         {
-            $results = Plausible::$plugin->plausible->getTopCountries($this->limit, $this->timePeriod);
+            $results = Plausible::$plugin->plausible->query([
+                'metrics' => ['visitors'],
+                'date_range' => $this->timePeriod,
+                'pagination' => [
+                    'limit' => $this->limit,
+                    'offset' => 0,
+                ],
+                "filters" => [
+                    [
+                        "is_not",
+                        "visit:country_name",
+                        [""]
+                    ]
+                ],
+                "dimensions" => [
+                    "visit:country_name"
+                ]
+            ]);
 
-            foreach ($results as &$result) {
-                if (!empty($result->country)) {
-                    $result->country = Locale::getDisplayRegion(
-                        '-' . $result->country,
-                        Craft::$app->getUser()->getIdentity()->getPreferredLanguage(),
-                    );
-                }
-            }
+//            foreach ($results as &$result) {
+//                if (!empty($result->country)) {
+//                    $result->country = Locale::getDisplayRegion(
+//                        '-' . $result->country,
+//                        Craft::$app->getUser()->getIdentity()->getPreferredLanguage(),
+//                    );
+//                }
+//            }
 
             Craft::$app->getCache()->set($cacheKey, $results, 300);
         }
