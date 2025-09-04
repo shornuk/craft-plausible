@@ -14,9 +14,7 @@ var chart = new frappe.Chart("#chart", {
     data: data,
     type: 'line',
     axisOptions: {
-    	// xAxisMode: 'tick',
-    	// yAxisMode: 'tick',
-    	xIsSeries: 1
+    	xIsSeries: true
     },
     lineOptions: {
 	    regionFill: 1,

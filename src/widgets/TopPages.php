@@ -8,6 +8,7 @@
 
 namespace shornuk\plausible\widgets;
 
+use shornuk\plausible\helpers\StringHelper;
 use shornuk\plausible\Plausible;
 use shornuk\plausible\services\PlausibleService;
 use shornuk\plausible\assetbundles\plausible\PlausibleAsset;
@@ -28,8 +29,8 @@ class TopPages extends Widget
     // Public Properties
     // =========================================================================
 
-    public $limit = 4;
-    public $timePeriod = '30d';
+    public int $limit = 4;
+    public string $timePeriod = '30d';
 
     // Static Methods
     // =========================================================================
@@ -67,17 +68,9 @@ class TopPages extends Widget
 
     public function getTitle(): ?string
     {
-        if (!isset($title)) {
-            $title = Craft::t('plausible', 'Top Pages');
-        }
-        $timePeriod = $this->timePeriod;
-
-        if ($timePeriod) {
-            $title = Craft::t('app', 'Top Pages - {timePeriod}', [
-                'timePeriod' => Craft::t('plausible', Plausible::$plugin->plausible->timeLabelize($timePeriod)),
-            ]);
-        }
-        return $title;
+        return Craft::t('plausible', 'Top Pages - {timePeriod}', [
+            'timePeriod' => Craft::t('plausible', StringHelper::timeLabelize($this->timePeriod)),
+        ]);
     }
 
     /**
@@ -100,12 +93,31 @@ class TopPages extends Widget
     {
         Craft::$app->getView()->registerAssetBundle(PlausibleAsset::class);
 
-        $cacheKey = 'plausible:topPages'.$this->timePeriod.$this->limit;
+        $cacheKey = 'plausibleV5:topPages'.$this->timePeriod.$this->limit;
         $results = Craft::$app->getCache()->get($cacheKey);
         if (!$results)
         {
-            $results = Plausible::$plugin->plausible->getTopPages($this->limit, $this->timePeriod);
+            $results = Plausible::$plugin->plausible->query([
+                'metrics' => ['visitors'],
+                'date_range' => $this->timePeriod,
+                'pagination' => [
+                    'limit' => $this->limit,
+                    'offset' => 0,
+                ],
+                "filters" => [
+                    [
+                        "is_not",
+                        "event:page",
+                        [""]
+                    ]
+                ],
+                "dimensions" => [
+                    "event:page"
+                ]
+            ]);
+
             Craft::$app->getCache()->set($cacheKey, $results, 300);
+
         }
 
         return Craft::$app->getView()->renderTemplate(

@@ -16,12 +16,4 @@ class PlausibleVariable
     // Public Methods
     // =========================================================================
 
-    /**
-     * @param null $optional
-     * @return string
-     */
-    public function test()
-    {
-        return Plausible::$plugin->plausible->test();
-    }
 }

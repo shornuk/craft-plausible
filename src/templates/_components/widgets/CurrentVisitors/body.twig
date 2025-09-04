@@ -2,11 +2,12 @@
 	{% if results.error is defined %}
 		<p class="error">{{ results.error }}</p>
 	{% else %}
+        {% set results = results.results|first %}
 		<div class="current">
 			<div class="blob-container">
 				<div class="blob"></div>
 			</div>
-			<p>{{ results }}</p>
+			<p>{{ results.metrics|first }}</p>
 		</div>
 		<div class="helper">
 			<span>{{ "Refreshed every 60 secs"|t('plausible') }}</span>
