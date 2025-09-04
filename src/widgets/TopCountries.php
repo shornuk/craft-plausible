@@ -69,15 +69,9 @@ class TopCountries extends Widget
 
     public function getTitle(): ?string
     {
-        $title = Craft::t('plausible', 'Top Countries');
-        $timePeriod = $this->timePeriod;
-
-        if ($timePeriod) {
-            $title = Craft::t('plausible', 'Top Countries - {timePeriod}', [
-                'timePeriod' => Craft::t('plausible', StringHelper::timeLabelize($timePeriod)),
-            ]);
-        }
-        return $title;
+        return Craft::t('plausible', 'Top Countries - {timePeriod}', [
+            'timePeriod' => Craft::t('plausible', StringHelper::timeLabelize($this->timePeriod)),
+        ]);
     }
 
     /**
@@ -100,7 +94,7 @@ class TopCountries extends Widget
     {
         Craft::$app->getView()->registerAssetBundle(PlausibleAsset::class);
 
-        $cacheKey = 'plausibleV2:topCountries'.$this->timePeriod.$this->limit;
+        $cacheKey = 'plausibleV5:topCountries'.$this->timePeriod.$this->limit;
         $results = Craft::$app->getCache()->get($cacheKey);
         if (!$results)
         {

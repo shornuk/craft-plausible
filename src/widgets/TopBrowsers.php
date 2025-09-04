@@ -68,15 +68,9 @@ class TopBrowsers extends Widget
 
     public function getTitle(): ?string
     {
-        $title = Craft::t('plausible', 'Top Browsers');
-        $timePeriod = $this->timePeriod;
-
-        if ($timePeriod) {
-            $title = Craft::t('plausible', 'Top Browsers - {timePeriod}', [
-                'timePeriod' => Craft::t('plausible', StringHelper::timeLabelize($timePeriod)),
-            ]);
-        }
-        return $title;
+        return Craft::t('plausible', 'Top Browsers - {timePeriod}', [
+            'timePeriod' => Craft::t('plausible', StringHelper::timeLabelize($this->timePeriod)),
+        ]);
     }
 
     /**
@@ -99,7 +93,7 @@ class TopBrowsers extends Widget
     {
         Craft::$app->getView()->registerAssetBundle(PlausibleAsset::class);
 
-        $cacheKey = 'plausibleV2:topBrowsers'.$this->timePeriod.$this->limit;
+        $cacheKey = 'plausibleV5:topBrowsers'.$this->timePeriod.$this->limit;
         $results = Craft::$app->getCache()->get($cacheKey);
         if (!$results)
         {

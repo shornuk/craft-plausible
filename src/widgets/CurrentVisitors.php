@@ -73,7 +73,7 @@ class CurrentVisitors extends Widget
     {
         Craft::$app->getView()->registerAssetBundle(PlausibleAsset::class);
 
-        $cacheKey = 'plausible:currentVisitors';
+        $cacheKey = 'plausibleV5:currentVisitors';
         $results = Craft::$app->getCache()->get($cacheKey);
         if (!$results)
         {

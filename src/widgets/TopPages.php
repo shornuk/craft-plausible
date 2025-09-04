@@ -68,16 +68,9 @@ class TopPages extends Widget
 
     public function getTitle(): ?string
     {
-
-        $title = Craft::t('plausible', 'Top Pages');
-        $timePeriod = $this->timePeriod;
-
-        if ($timePeriod) {
-            $title = Craft::t('plausible', 'Top Pages - {timePeriod}', [
-                'timePeriod' => Craft::t('plausible', StringHelper::timeLabelize($timePeriod)),
-            ]);
-        }
-        return $title;
+        return Craft::t('plausible', 'Top Pages - {timePeriod}', [
+            'timePeriod' => Craft::t('plausible', StringHelper::timeLabelize($this->timePeriod)),
+        ]);
     }
 
     /**
@@ -100,7 +93,7 @@ class TopPages extends Widget
     {
         Craft::$app->getView()->registerAssetBundle(PlausibleAsset::class);
 
-        $cacheKey = 'plausibleV2:topPages'.$this->timePeriod.$this->limit;
+        $cacheKey = 'plausibleV5:topPages'.$this->timePeriod.$this->limit;
         $results = Craft::$app->getCache()->get($cacheKey);
         if (!$results)
         {

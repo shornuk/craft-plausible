@@ -60,15 +60,9 @@ class TopDevices extends Widget
 
     public function getTitle(): ?string
     {
-        $title = Craft::t('plausible', 'Top Devices');
-        $timePeriod = $this->timePeriod;
-
-        if ($timePeriod) {
-            $title = Craft::t('plausible', 'Top Devices - {timePeriod}', [
-                'timePeriod' => Craft::t('plausible', StringHelper::timeLabelize($timePeriod)),
-            ]);
-        }
-        return $title;
+        return Craft::t('plausible', 'Top Devices - {timePeriod}', [
+            'timePeriod' => Craft::t('plausible', StringHelper::timeLabelize($this->timePeriod)),
+        ]);
     }
 
     /**
@@ -91,7 +85,7 @@ class TopDevices extends Widget
     {
         Craft::$app->getView()->registerAssetBundle(PlausibleAsset::class);
 
-        $cacheKey = 'plausibleV2:topDevices'.$this->timePeriod;
+        $cacheKey = 'plausibleV5:topDevices'.$this->timePeriod;
         $results = Craft::$app->getCache()->get($cacheKey);
 
         if (!$results)
@@ -113,7 +107,7 @@ class TopDevices extends Widget
             Craft::$app->getCache()->set($cacheKey, $results, 300);
         }
 
-        $visitorCacheKey = 'plausibleV2:totalVisitors'.$this->timePeriod;
+        $visitorCacheKey = 'plausibleV5:totalVisitors'.$this->timePeriod;
         $visitors = Craft::$app->getCache()->get($visitorCacheKey);
         if (!$visitors)
         {
