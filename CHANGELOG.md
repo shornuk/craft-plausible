@@ -4,10 +4,12 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](http://keepachangelog.com/) and this project adheres to [Semantic Versioning](http://semver.org/).
 
-## 3.1.0 - 2024-12-09
+## 5.0.0 - 2025-09-04
 
-#### Added
-- Added FR translations ([#21](https://github.com/shornuk/craft-plausible/pull/21) - Thanks [@scandella](https://github.com/scandella)!)
+#### Changed
+- Updated to use Plausible API Stats API v2.
+- Remove period comparison from overview (no longer supported in V2 API).
+- Updated caching and error handling.
 
 ## 3.0.0 - 2024-03-29
 

@@ -9,9 +9,10 @@
 namespace shornuk\plausible\twigextensions;
 
 use shornuk\plausible\Plausible;
-use shornuk\plausible\services\PlausibleService;
+use shornuk\plausible\helpers\StringHelper;
 
-use Craft;
+use Twig\Extension\AbstractExtension;
+use Twig\TwigFilter;
 use Twig_Extension;
 use Twig_SimpleFilter;
 
@@ -21,16 +22,16 @@ use Twig_SimpleFilter;
  * @since     1.0.0
  */
 
-class PlausibleTwigExtension extends \Twig\Extension\AbstractExtension
+class PlausibleTwigExtension extends AbstractExtension
 {
     public function getFilters(): array
     {
         return [
-            new \Twig\TwigFilter('timeLabelize', [$this, 'timeLabelize']),
-            new \Twig\TwigFilter('prettyTime', [$this, 'prettyTime']),
-            new \Twig\TwigFilter('prettyCount', [$this, 'prettyCount']),
-            new \Twig\TwigFilter('asPercentageOf', [$this, 'asPercentageOf']),
-            new \Twig\TwigFilter('prepUri', [$this, 'prepUri']),
+            new TwigFilter('timeLabelize', [$this, 'timeLabelize']),
+            new TwigFilter('prettyTime', [$this, 'prettyTime']),
+            new TwigFilter('prettyCount', [$this, 'prettyCount']),
+            new TwigFilter('asPercentageOf', [$this, 'asPercentageOf']),
+            new TwigFilter('prepUri', [$this, 'prepUri']),
         ];
     }
 
@@ -42,7 +43,7 @@ class PlausibleTwigExtension extends \Twig\Extension\AbstractExtension
 
     public function timeLabelize($value)
     {
-        return Plausible::$plugin->plausible->timeLabelize($value);
+        return StringHelper::timeLabelize($value);
     }
 
     public function asPercentageOf($value, $topValue)

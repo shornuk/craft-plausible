@@ -27,15 +27,15 @@ class Settings extends Model
     /**
     * @var string The base URL of the API, defaulting to plausible.io
     */
-    public $baseUrl = 'https://plausible.io';
+    public string $baseUrl = 'https://plausible.io';
     /**
-    * @var string An API key to used for accessing the Send in Blue API
+    * @var string An API key to use for accessing the Send in Blue API
     */
-    public $apiKey;
+    public string $apiKey;
     /**
-    * @var string An API key to used for accessing the Send in Blue API
+    * @var string An API key to use for accessing the Send in Blue API
     */
-    public $siteId;
+    public string $siteId;
 
     // Public Methods
     // =========================================================================
@@ -52,7 +52,7 @@ class Settings extends Model
         ];
     }
 
-    public function attributeLabels()
+    public function attributeLabels(): array
     {
         $labels = parent::attributeLabels();
         $labels['baseUrl'] = Craft::t('plausible','Base URL');

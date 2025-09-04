@@ -133,7 +133,7 @@ class Plausible extends Plugin
     /**
      * @inheritdoc
      */
-    private function _registerTwigExtensions()
+    private function _registerTwigExtensions(): void
     {
         Craft::$app->view->registerTwigExtension(new PlausibleTwigExtension);
     }

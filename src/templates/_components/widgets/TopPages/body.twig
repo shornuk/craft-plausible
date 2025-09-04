@@ -3,23 +3,25 @@
 	{% if results.error is defined %}
 		<p class="error">{{ results.error }}</p>
 	{% else %}
+		{% set results = results.results %}
 		{% set max = results|first %}
 		{% for result in results %}
+			{% set metric = result.metrics|first %}
+			{% set dimension = result.dimensions|first %}
 			<tr>
-
-				{% set uri = result.page|prepUri %}
+				{% set uri = dimension|prepUri %}
 				{% set entry = craft.entries().uri(uri|literal).one() %}
 
 				{{ resultBar({
 					bg: {
-						width: result.visitors|asPercentageOf(max.visitors)
+						width: metric|asPercentageOf(max.metrics|first)
 					},
 					link: entry ? {
 						url: entry.cpEditUrl,
-						text: result.page
+						text: dimension
 					},
-					text: result.page,
-					value: result.visitors
+					text: dimension,
+					value: metric
 				}) }}
 		    </tr>
 	    {% endfor %}

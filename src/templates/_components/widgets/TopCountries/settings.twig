@@ -7,7 +7,9 @@
     <div class="select">
         <select id="timePeriod" name="timePeriod">
             {% for period in periods %}
-                <option value="{{ period }}"{% if period == widget.timePeriod %} selected{% endif %}>{{ period|timeLabelize|t('plausible') }}</option>
+                <option value="{{ period }}"{% if period == widget.timePeriod %} selected{% endif %}>
+                    {{ period|timeLabelize|t('plausible') }}
+                </option>
             {% endfor %}
         </select>
     </div>
@@ -19,7 +21,7 @@
 }, timeInput) }}
 
 {{ forms.textField({
-    label: "Number of countries"|t('plausible'),
+    label: "Number of results"|t('plausible'),
     id: 'limit',
     name: 'limit',
     value: widget.limit,
