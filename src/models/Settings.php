@@ -29,13 +29,13 @@ class Settings extends Model
     */
     public string $baseUrl = 'https://plausible.io';
     /**
-    * @var string An API key to use for accessing the Send in Blue API
+    * @var string An API key to use for accessing the Plausible API
     */
-    public string $apiKey;
+    public ?string $apiKey = null;
     /**
-    * @var string An API key to use for accessing the Send in Blue API
+    * @var string An Site ID to use for accessing the Plausible API
     */
-    public string $siteId;
+    public ?string $siteId = null;
 
     // Public Methods
     // =========================================================================
